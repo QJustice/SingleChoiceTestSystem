@@ -1,0 +1,24 @@
+1
+aaaaaaaaaaaaaaaaa
+A c
+B gh
+C dg
+D kj
+2
+abbbbbaaa
+A g
+B gkjk
+C ff
+D st
+3
+QQQQQ
+A ERT
+B URT
+C FGH
+D NCD
+4
+WWWWW
+A QWE
+B SDF
+C FHJ
+D VBN
