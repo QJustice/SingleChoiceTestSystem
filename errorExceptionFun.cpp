@@ -14,8 +14,6 @@ void exitErrorTheSystem()
 void unknownIdentity()
 {
 	cout << "未知身份，登录失败，请联系统管理员\n";
-	cout << "按Q退出程序，按C继续输入";
-
 }
 
 //刷新缓冲区

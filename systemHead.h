@@ -18,4 +18,6 @@ void exitSystem();			//退出系统
 void systemSleep(int stime);			//延迟等待
 bool judgmentString(string& str);		//判断是否为字符串
 bool judgmentNumber(string& str);			//判断是否为数字
+bool openMenu(string& userName, string& userType);		//开启菜单
+bool returnMenu(string& userName, string& userType);	//返回上一级
 #endif	//_SYSTEMHEAD_

@@ -19,7 +19,7 @@ private:
 	string A, B, C, D;		//各选项答案
 
 public:
-	char answer;			//用户回答的答案
+	char answer = ' ';			//用户回答的答案
 	bool setNum(string _Num);
 	bool setTitle(string _title);
 	bool setA(string _A);

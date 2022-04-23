@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -53,8 +52,10 @@ bool logOn(string& Name, string& Password)			//登录
 
 		if (tmpit == mp.end())					//未找到相关用户
 		{
+			flag = true;
 			cout << "未注册用户,请先注册\n\n";
 			systemSleep(2000);					//系统休眠
+			cout << "加载中请稍后.....\n";
 			unregisteredUserMenu(Name, Password);		//调用未注册用户菜单
 		}
 		else if (tmpit->second.first != Password)		//用户名正确存在密码错误
@@ -78,190 +79,7 @@ bool logOn(string& Name, string& Password)			//登录
 			flag = true;				//允许用户输入
 		}
 		else							//用户名和密码都正确
-		{
-			cout << "拼命加载中......、\n";
-			fstream tmpfoi(tempUser, ios::out);		//关联当前用户临时文件
-			tmpfoi << Name << endl;					//临时文件中写入当前用户名
-			tmpfoi.close();							//关闭临时文件
-			systemSleep(2000);						//系统休眠
-			CAdmin admin;
-			CUser user;
-			string inOldPassword, inNewPassword;
-			string ans = "no";							//记录用户输入和相关命令
-			bool flag1 = false;						//标记选项1合法性
-			bool flag2 = false;						//标记选项2合法性
-			bool flag3 = false;						//标记选项3合法性
-			bool flag5 = false;						//标记选项5合法性
-			bool flag7 = false;						//标记选项7合法性
-			if (tmpit->second.second == admin.getIdentity())		//判断是否为管理员
-			{
-				admin.menu();					//管理员菜单
-				bool flag_admin = false;				//标记管理员菜单选项的选择合法性
-				string problemNum;				//题目序号
-				int sel = -1;						//菜单选项
-				CProblem tmpProblem;		//临时存储题目数据
-				string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD;		
-				//题目编号，标题，选项A,选项B,选项C,选项D
-				
-				do
-				{
-					flag_admin = false;				//管理员菜单选项标记初始化
-					cin >> sel;					//用户键盘输入选项
-					switch (sel)
-					{
-					case 1:	admin.viewQuestions();	//调用查看题库函数
-						break;
-					case 2:
-						tmpProblem.setNum("0");		//默认题目编号为0
-						cout << "请输入题目标题：\n";
-						cin >> tmpTitle;			//键盘读取题目标题
-						tmpProblem.setTitle(tmpTitle);
-						cout << "请输入选项A内容：\n";
-						cin >> tmpA;				//键盘读取选项A内容
-						tmpProblem.setA("A " + tmpA);	//给选项加入A前缀
-						cout << "请输入选项B内容：\n";
-						cin >> tmpB;				//键盘读取选项B内容
-						tmpProblem.setB("B " + tmpB);	//给选项加入B前缀
-						cout << "请输入选项C内容：\n";
-						cin >> tmpC;				//键盘读取选项C内容
-						tmpProblem.setC("C " + tmpC);	//给选项加入C前缀
-						cout << "请输入选项D内容：\n";
-						cin >> tmpD;				//键盘读取选项D内容
-						tmpProblem.setD("D " + tmpD);	//给选项加入D前缀
-						admin.addQuestions(tmpProblem);	//调用增加题目的函数
-						break;
-					case 3: 
-						do
-						{
-							flag3 = false;			//选项三内部标记初始化
-							cout << "请输入需要删除的题目编号：\n";
-							cin >> problemNum;		//用户键盘输入题目编号
-							if (!judgmentNumber(problemNum))	//判断输入是否为合法数字
-							{
-								cout << "无效输入，请重新输入。\n";
-								flag3 = true;		//标记非法
-							}
-						} while (flag3);			//非法要求重新输入
-						admin.deleteQuestions(problemNum);	//调用删除题目函数
-						break;
-					case 4:	admin.userManagement();
-						break;
-					case 5:  
-						do
-						{
-							ans = "no";						//确保安全性默认指令为no
-							flag5 = false;					//选项二内部标记初始化
-							cout << "是否确认清空，请输入yes/no\n";
-							cin >> ans;						//用户键盘输入命令
-							if (!(ans == "yes" || ans == "no"))
-							{
-								cout << "无效输入，请重新输入。\n";
-								flag5 = true;
-							}
-						} while (flag5);					//非法输入要求重新输入
-						admin.clearQuestions(ans, pathProblem);
-						break;
-					case 6:	
-						cout << "请输入旧密码：";
-						cin >> inOldPassword;			//键盘输入新密码
-						cout << "请输入新密码：";
-						cin >> inNewPassword;			//键盘输入旧密码
-						//调用更改密码函数
-						admin.changPassword(Name, inOldPassword, inNewPassword, pathUser);
-						break;
-					case 7: 
-						do
-						{
-							ans = "no";						//确保安全性默认指令为no
-							flag7 = false;					//选项二内部标记初始化
-							cout << "是否确认注销，请输入yes/no\n";
-							cin >> ans;						//用户键盘输入命令
-							if (!(ans == "yes" || ans == "no"))
-							{
-								cout << "无效输入，请重新输入。\n";
-								flag7 = true;
-							}
-						} while (flag7);					//非法输入要求重新输入
-						admin.cancelAccount(ans, pathUser, Name);	//调用账号注销函数
-						break;
-					case 8: exitSystem();			//退出系统
-						break;
-					default: flag_admin = true;		//非法输入会改变合法输入标记
-					}
-					if (flag_admin)		//非法输入
-					{
-						cout << "无效输入，请重新输入.\n";
-						cin.clear();			//更改cin状态标识符准备接受下一次的输入
-						systemSleep(1000);		//系统休眠
-						refreshBuffer();		//刷新缓冲区
-					}
-				} while (flag_admin);			//非法输入要求重新输入
-			}
-			else if (tmpit->second.second == user.getIdentity())	//判断是否为用户
-			{
-				user.menu();								//用户菜单 
-				bool flag_user = false;							//标记用户菜单选项的选择合法性
-				string testNum;								//用户输入的题目抽取数量
-				int sel = -1;									//菜单选项
-				do
-				{				
-					flag_user = false;							//用户菜单选项标记初始化
-					cin >> sel;								//用户键盘输入选项
-					switch (sel)
-					{
-					case 1:
-						do
-						{
-							flag1 = false;					//选项一内部标记初始化
-							cout << "请输入抽题数量：\n";
-							cin >> testNum;					//用户键盘输入抽题数量	
-							if (!judgmentNumber(testNum))	//判断是否合法数字
-							{
-								cout << "无效输入，请重新输入。\n";
-								flag1 = true;
-							}								
-						} while (flag1);					//非法输入要求重新输入				
-						user.testQuestions(testNum);
-						break;
-					case 2:
-						do
-						{
-							ans = "no";						//确保安全性默认指令为no
-							flag2 = false;					//选项二内部标记初始化
-							cout << "是否确认注销，请输入yes/no\n";
-							cin >> ans;						//用户键盘输入命令
-							if (!(ans == "yes" || ans == "no"))
-							{
-								cout << "无效输入，请重新输入。\n";
-								flag2 = true;
-							}
-						} while (flag2);					//非法输入要求重新输入
-						user.cancelAccount(ans, pathUser, Name);	//调用账号注销函数
-						break;
-					case 3:	
-						cout << "请输入旧密码：";
-						cin >> inOldPassword;			//键盘输入新密码
-						cout << "请输入新密码：";
-						cin >> inNewPassword;			//键盘输入旧密码
-						//调用更改密码函数
-						user.changPassword(Name, inOldPassword, inNewPassword, pathUser);
-						break;
-					case 4:	exitSystem();					//退出系统
-						break;
-					default: flag_user = true;						//非法输入会改变合法输入标记
-					}
-					if (flag_user)				//非法输入
-					{
-						cout << "无效输入，请重新输入.\n";
-						cin.clear();			//更改cin状态标识符准备接受下一次的输入
-						systemSleep(1000);		//系统休眠
-						refreshBuffer();		//刷新缓冲区
-					}
-				} while (flag_user);			//非法输入要求重新输入
-			}
-			else	//未知身份	
-				void unknownIdentity();
-		}
+			openMenu(Name, tmpit->second.second);		//打开菜单
 	} while (flag);					//达到登录条件跳出循环
 
 	return !flag;
@@ -328,9 +146,10 @@ void systemMenu()		//主菜单
 void unregisteredUserMenu(string& name, string& password)
 {
 	bool flag = false;							//异常标记
-	int sel;    							//菜单选项
+	int sel = -1;    							//菜单选项
 	do
 	{
+		system("cls");
 		cout << "================================================\n";
 		cout << endl;
 		cout << "=                 1.重新输入                   =\n";
@@ -343,13 +162,11 @@ void unregisteredUserMenu(string& name, string& password)
 		switch (sel)
 		{
 		case 1:
-		{
 			cout << "请输入用户名\n";
 			cin >> name;					//用户重新从键盘输入用户名
 			cout << "请输入密码\n";
 			cin >> password;				//用户重新从键盘输入密码
-		}
-		break;
+			break;
 		case 2:
 			cout << "请输入用户名\n";
 			cin >> name;					//用户键盘输入选项用户名
@@ -397,5 +214,245 @@ bool judgmentNumber(string& str)
 		if (!isdigit(str[i]))				//逐个字符判断是否为数字
 			return false;					//发现非数字返回false
 	return true;
+}
+
+bool openMenu(string& userName, string& userType)
+{
+	cout << "拼命加载中......、\n";
+	fstream tmpfoi(tempUser, ios::out);		//关联当前用户临时文件
+	tmpfoi << userName << endl;					//临时文件中写入当前用户名
+	tmpfoi.close();							//关闭临时文件
+	systemSleep(1500);						//系统休眠
+	CAdmin admin;
+	CUser user;
+	string inOldPassword, inNewPassword;
+	string ans = "no";							//记录用户输入和相关命令
+	bool flag1 = false;						//标记选项1合法性
+	bool flag2 = false;						//标记选项2合法性
+	bool flag3 = false;						//标记选项3合法性
+	bool flag5 = false;						//标记选项5合法性
+	bool flag7 = false;						//标记选项7合法性
+	if (userType == admin.getIdentity())		//判断是否为管理员
+	{
+		admin.menu();					//管理员菜单
+		bool flag_admin = false;				//标记管理员菜单选项的选择合法性
+		string problemNum;				//题目序号
+		int sel = -1;						//菜单选项
+		CProblem tmpProblem;		//临时存储题目数据
+		string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD;
+		//题目编号，标题，选项A,选项B,选项C,选项D
+
+		do
+		{
+			flag_admin = false;				//管理员菜单选项标记初始化
+			cin >> sel;					//用户键盘输入选项
+			switch (sel)
+			{
+			case 1:	
+				admin.viewQuestions();	//调用查看题库函数
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 2:
+				tmpProblem.setNum("0");		//默认题目编号为0
+				cout << "请输入题目标题：\n";
+				cin >> tmpTitle;			//键盘读取题目标题
+				tmpProblem.setTitle(tmpTitle);
+				cout << "请输入选项A内容：\n";
+				cin >> tmpA;				//键盘读取选项A内容
+				tmpProblem.setA("A " + tmpA);	//给选项加入A前缀
+				cout << "请输入选项B内容：\n";
+				cin >> tmpB;				//键盘读取选项B内容
+				tmpProblem.setB("B " + tmpB);	//给选项加入B前缀
+				cout << "请输入选项C内容：\n";
+				cin >> tmpC;				//键盘读取选项C内容
+				tmpProblem.setC("C " + tmpC);	//给选项加入C前缀
+				cout << "请输入选项D内容：\n";
+				cin >> tmpD;				//键盘读取选项D内容
+				tmpProblem.setD("D " + tmpD);	//给选项加入D前缀
+				admin.addQuestions(tmpProblem);	//调用增加题目的函数
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 3:
+				do
+				{
+					flag3 = false;			//选项三内部标记初始化
+					cout << "请输入需要删除的题目编号：\n";
+					cin >> problemNum;		//用户键盘输入题目编号
+					if (!judgmentNumber(problemNum))	//判断输入是否为合法数字
+					{
+						cout << "无效输入，请重新输入。\n";
+						flag3 = true;		//标记非法
+					}
+				} while (flag3);			//非法要求重新输入
+				admin.deleteQuestions(problemNum);	//调用删除题目函数
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 4:	
+				admin.userManagement();
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 5:
+				do
+				{
+					ans = "no";						//确保安全性默认指令为no
+					flag5 = false;					//选项二内部标记初始化
+					cout << "是否确认清空，请输入yes/no\n";
+					cin >> ans;						//用户键盘输入命令
+					if (!(ans == "yes" || ans == "no"))
+					{
+						cout << "无效输入，请重新输入。\n";
+						flag5 = true;
+					}
+				} while (flag5);					//非法输入要求重新输入
+				admin.clearQuestions(ans, pathProblem);
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 6:
+				cout << "请输入旧密码：";
+				cin >> inOldPassword;			//键盘输入新密码
+				cout << "请输入新密码：";
+				cin >> inNewPassword;			//键盘输入旧密码
+				//调用更改密码函数
+				admin.changPassword(userName, inOldPassword, inNewPassword, pathUser);
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 7:
+				do
+				{
+					ans = "no";						//确保安全性默认指令为no
+					flag7 = false;					//选项二内部标记初始化
+					cout << "是否确认注销，请输入yes/no\n";
+					cin >> ans;						//用户键盘输入命令
+					if (!(ans == "yes" || ans == "no"))
+					{
+						cout << "无效输入，请重新输入。\n";
+						flag7 = true;
+					}
+				} while (flag7);					//非法输入要求重新输入
+				admin.cancelAccount(ans, pathUser, userName);	//调用账号注销函数
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 8: exitSystem();			//退出系统
+				break;
+			default: flag_admin = true;		//非法输入会改变合法输入标记
+			}
+			if (flag_admin)		//非法输入
+			{
+				cout << "无效输入，请重新输入.\n";
+				cin.clear();			//更改cin状态标识符准备接受下一次的输入
+				systemSleep(1000);		//系统休眠
+				refreshBuffer();		//刷新缓冲区
+			}
+		} while (flag_admin);			//非法输入要求重新输入
+	}
+	else if (userType == user.getIdentity())	//判断是否为用户
+	{
+		user.menu();								//用户菜单 
+		bool flag_user = false;							//标记用户菜单选项的选择合法性
+		string testNum;								//用户输入的题目抽取数量
+		int sel = -1;									//菜单选项
+		do
+		{
+			flag_user = false;							//用户菜单选项标记初始化
+			cin >> sel;								//用户键盘输入选项
+			switch (sel)
+			{
+			case 1:
+				do
+				{
+					flag1 = false;					//选项一内部标记初始化
+					cout << "请输入抽题数量：\n";
+					cin >> testNum;					//用户键盘输入抽题数量	
+					if (!judgmentNumber(testNum))	//判断是否合法数字
+					{
+						cout << "无效输入，请重新输入。\n";
+						flag1 = true;
+					}
+				} while (flag1);					//非法输入要求重新输入				
+				user.testQuestions(testNum);
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 2:
+				do
+				{
+					ans = "no";						//确保安全性默认指令为no
+					flag2 = false;					//选项二内部标记初始化
+					cout << "是否确认注销，请输入yes/no\n";
+					cin >> ans;						//用户键盘输入命令
+					if (!(ans == "yes" || ans == "no"))
+					{
+						cout << "无效输入，请重新输入。\n";
+						flag2 = true;
+					}
+				} while (flag2);					//非法输入要求重新输入
+				user.cancelAccount(ans, pathUser, userName);	//调用账号注销函数
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 3:
+				cout << "请输入旧密码：";
+				cin >> inOldPassword;			//键盘输入新密码
+				cout << "请输入新密码：";
+				cin >> inNewPassword;			//键盘输入旧密码
+				//调用更改密码函数
+				user.changPassword(userName, inOldPassword, inNewPassword, pathUser);
+				returnMenu(userName, userType);		//返回上一级菜单
+				break;
+			case 4:	exitSystem();					//退出系统
+				break;
+			default: flag_user = true;						//非法输入会改变合法输入标记
+			}
+			if (flag_user)				//非法输入
+			{
+				cout << "无效输入，请重新输入.\n";
+				cin.clear();			//更改cin状态标识符准备接受下一次的输入
+				systemSleep(1000);		//系统休眠
+				refreshBuffer();		//刷新缓冲区
+			}
+		} while (flag_user);			//非法输入要求重新输入
+	}
+	else	//未知身份	
+	{
+		void unknownIdentity();
+	}
+
+	return true;
+}
+
+bool returnMenu(string& userName, string& userType)
+{
+	bool reMenuFlag = false;		//用于标记非法输入
+	system("pause");				//清屏前暂停给用户阅读屏幕的机会
+	do
+	{
+		system("cls");				//清屏
+		cout << "================================================\n";
+		cout << endl;
+		cout << "=                 1.返回上级                   =\n";
+		cout << "=                 2.退出系统                   =\n";
+		cout << endl;
+		cout << "================================================\n";
+		int sel = -1;				//菜单选项
+		cin >> sel;					//用户键盘输入选项
+		switch (sel)
+		{
+		case 1:
+			openMenu(userName, userType);	//调用自身达到重开菜单的目的
+			break;
+		case 2:
+			exitSystem();			//调用退出系统函数
+			break;
+		default:
+			reMenuFlag = true;		//标记非法输入
+		}
+		if (reMenuFlag)				//非法输入
+		{
+			cout << "无效输入，请重新输入.\n";
+			cin.clear();			//更改cin状态标识符准备接受下一次的输入
+			systemSleep(1000);		//系统休眠
+			refreshBuffer();		//刷新缓冲区
+		}
+	} while (reMenuFlag);	//非法输入要求重新输入
+
+	return !reMenuFlag;
 }
 
