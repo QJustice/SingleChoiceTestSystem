@@ -45,7 +45,8 @@ public:
 	bool viewQuestions();				//查看题库 
 	bool addQuestions(CProblem problemData);				//增加题目
 	bool deleteQuestions(string num);				//删减题目
-	void userManagement();				//用户管理	
+	void userManagement(string userName, CAdmin admin, string adminName);				//用户管理菜单	
+	bool resettingUserPassword(string Name, string newPassword, string path);	//重置用户密码
 	bool clearQuestions(string instruct, string path);				//清空题库
 };
 

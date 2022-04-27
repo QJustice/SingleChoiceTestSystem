@@ -39,7 +39,7 @@ bool CBasic::changPassword(string& Name, string& oldPassword, string& newPasswor
 	auto tmpit = mp.find(Name);				//查找在此用户信息
 
 	if (tmpit == mp.end())					//未找到相关用户
-		cout << "未找到用户文件\n";
+		cout << "未找到相关用户\n";
 	else if (tmpit->second.first == oldPassword) //新旧密码比对
 	{
 		tmpit->second.first = newPassword;		//替换旧密码

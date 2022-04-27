@@ -126,7 +126,7 @@ bool registerNum(string& tempName)		//注册
 	cout << "请输入密码\n";
 	cin >> tempPassword;							//用户键盘输入密码
 	foi.clear();									//更改cin状态标识符
-	foi << tempName << " " << tempPassword << " user" << endl;		//给文件追加内容，保存注册信息
+	foi << tempName << " " << tempPassword << " " << usertype << endl;		//给文件追加内容，保存注册信息
 	foi.close();									//关闭文件
 	return !flag;
 }
@@ -224,22 +224,24 @@ bool openMenu(string& userName, string& userType)
 	tmpfoi.close();							//关闭临时文件
 	systemSleep(1500);						//系统休眠
 	CAdmin admin;
-	CUser user;
-	string inOldPassword, inNewPassword;
+	CUser user;							
+	string tmpUserName;					//临时存储用户名
+	string inOldPassword, inNewPassword;	//临时存储新旧密码
+	string problemNum;				//题目序号
+	CProblem tmpProblem;		//临时存储题目数据
+	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD; //临时存储题目信息
 	string ans = "no";							//记录用户输入和相关命令
 	bool flag1 = false;						//标记选项1合法性
 	bool flag2 = false;						//标记选项2合法性
 	bool flag3 = false;						//标记选项3合法性
+	bool flag4 = false;						//标记选项4合法性
 	bool flag5 = false;						//标记选项5合法性
 	bool flag7 = false;						//标记选项7合法性
 	if (userType == admin.getIdentity())		//判断是否为管理员
 	{
 		admin.menu();					//管理员菜单
-		bool flag_admin = false;				//标记管理员菜单选项的选择合法性
-		string problemNum;				//题目序号
+		bool flag_admin = false;				//标记管理员菜单选项的选择合法性		
 		int sel = -1;						//菜单选项
-		CProblem tmpProblem;		//临时存储题目数据
-		string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD;
 		//题目编号，标题，选项A,选项B,选项C,选项D
 
 		do
@@ -288,7 +290,9 @@ bool openMenu(string& userName, string& userType)
 				returnMenu(userName, userType);		//返回上一级菜单
 				break;
 			case 4:	
-				admin.userManagement();
+				cout << "请输入被操作的用户名：\n";
+				cin >> tmpUserName;
+				admin.userManagement(tmpUserName, admin, userName);
 				returnMenu(userName, userType);		//返回上一级菜单
 				break;
 			case 5:

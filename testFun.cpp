@@ -6,6 +6,8 @@
 #include <string>
 #include "errorExceptionHead.h"
 #include <algorithm>
+#include <map>
+#include <utility>
 
 using std::cout;
 using std::cin;
@@ -17,6 +19,8 @@ using std::getline;
 using std::stoi;
 using std::to_string;
 using std::find;
+using std::map;
+using std::pair;
 
 void CAdmin::menu()
 {
@@ -38,7 +42,7 @@ void CAdmin::menu()
 
 CAdmin::CAdmin()
 {
-	identity = "administrators";		//初始化管理员标签
+	identity = admintype;		//初始化管理员标签
 }
 
 bool CAdmin::viewQuestions()
@@ -215,9 +219,124 @@ bool CAdmin::deleteQuestions(string num)
 	return true;
 }
 
-void CAdmin::userManagement()
+void CAdmin::userManagement(string userName, CAdmin admin, string adminName)
 {
+	system("cls");
+	//用户管理菜单
+	cout << "================================================\n";
+	cout << endl;
+	cout << "=                 1.重置密码                   =\n";
+	cout << "=                 2.删除账户                   =\n";
+	cout << "=                 3.返回上级                   =\n";
+	cout << "=                 4.退出系统                   =\n";
+	cout << endl;
+	cout << "================================================\n";
+	
+	string ans = "no";							//记录用户输入和相关命令
+	bool flag2 = false;						//标记选项2合法性
+	string inNewPassword;					//新密码
+	bool flag_userManagement = false;				//标记用户管理菜单选项的选择合法性
+	int sel = -1;									//菜单选项
+	do
+	{
+		flag_userManagement = false;							//用户菜单管理选项标记初始化
+		cin >> sel;								//用户键盘输入选项
+		switch (sel)
+		{
+		case 1:
+			cout << "请输入新密码：";
+			cin >> inNewPassword;			//键盘输入旧密码
+			//调用更改密码函数
+			system("cls");
+			admin.resettingUserPassword(userName,inNewPassword, pathUser);
+			cout << "三秒后自动返回上一级菜单。\n";
+			for (int i = 3; i > 0; i--)
+			{
+				cout << endl << i << endl;
+				systemSleep(1000);
+			}
+			admin.userManagement(userName, admin, userName);		//自动返回上一级菜单
+			break;
+			
+		case 2:
+			do
+			{
+				ans = "no";						//确保安全性默认指令为no
+				flag2 = false;					//选项二内部标记初始化
+				cout << "是否确认注销，请输入yes/no\n";
+				cin >> ans;						//用户键盘输入命令
+				if (!(ans == "yes" || ans == "no"))
+				{
+					cout << "无效输入，请重新输入。\n";
+					flag2 = true;
+				}
+			} while (flag2);					//非法输入要求重新输入
+			system("cls");
+			admin.cancelAccount(ans, pathUser, userName);	//调用账号注销函数
+			cout << "三秒后自动返回上一级菜单。\n";
+			for (int i = 3; i > 0; i--)
+			{
+				cout << endl << i << endl;
+				systemSleep(1000);
+			}
+			admin.userManagement(userName, admin, userName);		//自动返回上一级菜单
+			break;
+		case 3:	openMenu(adminName, admin.identity);		//返回上一级菜单
+			break;
+		case 4:	exitSystem();					//退出系统
+			break;
+		default: flag_userManagement = true;						//非法输入会改变合法输入标记
+		}
+		if (flag_userManagement)				//非法输入
+		{
+			cout << "无效输入，请重新输入.\n";
+			cin.clear();			//更改cin状态标识符准备接受下一次的输入
+			systemSleep(1000);		//系统休眠
+			refreshBuffer();		//刷新缓冲区
+		}
+	} while (flag_userManagement);			//非法输入要求重新输入
+}
 
+bool CAdmin::resettingUserPassword(string Name, string newPassword, string path)
+{
+	string userName;			//用户名存储
+	pair<string, string>userMessage;		//用户密码与身份信息存储
+	map<string, pair<string, string>>mp;	//key:用户名 value:用户密码与身份信息
+	fstream foi(path, ios::in);			//打开注册信息文件
+	fstream fwoi;
+	if (!foi)				//文件异常处理
+	{
+		cout << "系统文件打开失败！请联系系统管理员。\n" << endl;
+		system("pause");						//暂停
+		exit(EXIT_FAILURE);				//系统异常终止
+	}
+	if (foi.peek() == EOF)			//文件空时特殊处理
+	{
+		cout << "系统文件空, 请联系系统管理员\n";
+		return false;
+	}
+	while (!foi.eof())								//把文件遍历到文件尾
+	{
+		foi >> userName >> userMessage.first >> userMessage.second; //写入临时变量
+		mp[userName] = userMessage;					//文件数据存入map
+	}
+	auto tmpit = mp.find(Name);				//查找在此用户信息
+
+	if (tmpit == mp.end())					//未找到相关用户
+		cout << "未找到相关用户\n";
+	else    //重置密码不需要新旧密码比对
+	{
+		tmpit->second.first = newPassword;		//替换旧密码
+		fwoi.open(path, ios::out);			//打开注册信息文件
+		for (auto it = mp.begin(); it != mp.end(); it++)	//写入更新后的数据
+			fwoi << it->first << " " << it->second.first << " " << it->second.second << endl;
+		fwoi.close();						//关闭文件
+		cout << "密码重置成功\n";
+	}
+	foi.clear();						//更改cin状态标识符
+	foi.close();						//关闭文件
+
+	return false;
 }
 
 bool CAdmin::clearQuestions(string instruct, string path)
@@ -261,7 +380,7 @@ void CUser::menu()
 
 CUser::CUser()
 {
-	identity = "user";			//初始化用户标签
+	identity = usertype;			//初始化用户标签
 }
 
 bool CUser::testQuestions(string num)

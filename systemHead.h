@@ -9,6 +9,8 @@ using std::string;
 const string pathUser = "D:/WorkSpace/VSFILE/SingleChoiceTestSystem/data/User.txt";
 const string pathProblem = "D:/WorkSpace/VSFILE/SingleChoiceTestSystem/data/Problem.txt";
 const string tempUser = "D:/WorkSpace/VSFILE/SingleChoiceTestSystem/data/tempUser.txt";
+const string usertype = "user";
+const string admintype = "administrators";
 
 bool registerNum(string& tempName);			//×¢²á
 bool logOn(string& Name, string& Password);				//µÇÂ¼
