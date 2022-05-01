@@ -17,6 +17,7 @@ private:
 	string num;				//题目编号
 	string title;			//题目
 	string A, B, C, D;		//各选项答案
+	string isAnswer;		//题目答案
 
 public:
 	char answer = ' ';			//用户回答的答案
@@ -26,13 +27,14 @@ public:
 	bool setB(string _B);
 	bool setC(string _C);
 	bool setD(string _D);
-
+	bool setAnswer(string _isAnswer);
 	string getNum();
 	string getTitle();
 	string getA();
 	string getB();
 	string getC();
 	string getD();
+	string getAnswer();
 };
 
 class CAdmin:public CBasic

@@ -1,24 +1,28 @@
 1
-aaaaaaaaaaaaaaaaa
-A c
-B gh
-C dg
-D kj
-2
-abbbbbaaa
-A g
-B gkjk
-C ff
-D st
-3
 QQQQQ
-A ERT
-B URT
-C FGH
-D NCD
+A DFD
+B G
+C GS
+D GF
+答案 A
+2
+YYYYY
+A FGH
+B JF
+C FD
+D HG
+答案 B
+3
+TYU
+A HD
+B SG
+C RH
+D HD
+答案 C
 4
-WWWWW
-A QWE
-B SDF
-C FHJ
-D VBN
+GHSFS
+A GHJ
+B DR
+C GJ
+D UJ
+答案 D

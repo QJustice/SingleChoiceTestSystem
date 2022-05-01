@@ -2,6 +2,7 @@
   errorExceptionFun.cpp
   main.cpp
   systemFun.cpp
+D:\WorkSpace\VSFILE\SingleChoiceTestSystem\systemFun.cpp(505,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
   testFun.cpp
   正在生成代码...
   SingleChoiceTestSystem.vcxproj -> D:\WorkSpace\VSFILE\SingleChoiceTestSystem\x64\Debug\SingleChoiceTestSystem.exe

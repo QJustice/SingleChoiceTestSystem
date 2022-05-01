@@ -26,7 +26,7 @@ int main()
 			cout << "请输入用户名\n";
 			cin >> tmpName;			//键盘读取用户输入
 			cout << "请输入密码\n";
-			cin >> tmpPassword;		//键盘读取用户输入
+			tmpPassword = getpassword();		//键盘读取用户输入,加密输入
 			logOn(tmpName, tmpPassword);	//调用登录函数
 			break;
 		case 3:					//选项三

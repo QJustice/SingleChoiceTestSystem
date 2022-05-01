@@ -10,6 +10,8 @@
 #include "systemHead.h"
 #include "errorExceptionHead.h"
 #include "testHead.h"
+#include <conio.h>
+#include <algorithm>
 
 using std::cout;
 using std::cin;
@@ -19,6 +21,8 @@ using std::map;
 using std::fstream;
 using std::vector;
 using std::ios;
+using std::flush;
+using std::fill;
 
 bool logOn(string& Name, string& Password)			//登录
 {
@@ -124,7 +128,7 @@ bool registerNum(string& tempName)		//注册
 
 	} while (flag);									//异常输入要求重新输入
 	cout << "请输入密码\n";
-	cin >> tempPassword;							//用户键盘输入密码
+	tempPassword = getpassword();		//键盘读取用户输入,加密输入
 	foi.clear();									//更改cin状态标识符
 	foi << tempName << " " << tempPassword << " " << usertype << endl;		//给文件追加内容，保存注册信息
 	foi.close();									//关闭文件
@@ -165,7 +169,7 @@ void unregisteredUserMenu(string& name, string& password)
 			cout << "请输入用户名\n";
 			cin >> name;					//用户重新从键盘输入用户名
 			cout << "请输入密码\n";
-			cin >> password;				//用户重新从键盘输入密码
+			password = getpassword();		//键盘读取用户输入,加密输入
 			break;
 		case 2:
 			cout << "请输入用户名\n";
@@ -229,7 +233,7 @@ bool openMenu(string& userName, string& userType)
 	string inOldPassword, inNewPassword;	//临时存储新旧密码
 	string problemNum;				//题目序号
 	CProblem tmpProblem;		//临时存储题目数据
-	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD; //临时存储题目信息
+	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer; //临时存储题目信息
 	string ans = "no";							//记录用户输入和相关命令
 	bool flag1 = false;						//标记选项1合法性
 	bool flag2 = false;						//标记选项2合法性
@@ -271,6 +275,9 @@ bool openMenu(string& userName, string& userType)
 				cout << "请输入选项D内容：\n";
 				cin >> tmpD;				//键盘读取选项D内容
 				tmpProblem.setD("D " + tmpD);	//给选项加入D前缀
+				cout << "请输入标准答案：\n";
+				cin >> tmpAnswer;			////键盘读取标准答案
+				tmpProblem.setAnswer("答案 " + tmpAnswer); //给标准答案加入前缀
 				admin.addQuestions(tmpProblem);	//调用增加题目的函数
 				returnMenu(userName, userType);		//返回上一级菜单
 				break;
@@ -460,3 +467,61 @@ bool returnMenu(string& userName, string& userType)
 	return !reMenuFlag;
 }
 
+string getpassword()
+{
+	string str = "";		//空字符串
+	char init = '\0';		//默认字符为空
+	for (;;)
+	{
+		init = _getch();		//获取输入但不显示
+		if (init == VK_RETURN)   //如果键入的是Enter 键那么换行并结束输入
+		{
+			cout << endl;
+			break;
+		}
+		else if (init == VK_BACK) //如果键入的是BACKSPACE 键那么进行退回
+		{
+			cout << "\b \b" << flush;
+			str.erase(str.length() - 1);
+		}
+		else					//正常输入时打印*号
+		{
+			cout << "*" << flush;
+			str += init;		//把字符接入字符串
+		}
+	}
+
+	return str;
+}
+
+void Random(int* arr, int num, int minNum, int maxNum)//生成范围在minNum~maxNum的随机数 
+{
+	if (num == maxNum)	//抽取数量与题目数量相等时不需要随机抽取直接全部输出
+	{
+		for (int i = 0; i < num; i++)
+			arr[i] = i + 1;
+		return;
+	}
+	srand(time(NULL));  //设置时间种子
+	bool* flagArr = new bool[maxNum + 1];		//用于标记已经出现的随机数
+	fill(flagArr, flagArr + maxNum + 1, false);		//标记数组初始化为FALSE
+	int temp = 0;				//临时保存随机数
+	for (int i = 0; i < num;) 
+	{
+		temp = rand() % (maxNum - minNum + 1) + minNum;//生成区间maxNum~l的随机数 
+		if (!flagArr[temp])		//保证数字唯一性
+		{
+			flagArr[temp] = true;		//下标为数字，元素值为标记，每次发现新数则标记
+			arr[i] = temp;		//保存数字
+			i++;		//发现新数字并保存后随机数数组下标后移
+		}
+		else			//不是新数字就跳过
+			continue;
+	}
+}
+
+int cmpfunc(const void* a, const void* b)
+{
+	//从小到大排序
+	return (*(int*)a - *(int*)b);
+}
