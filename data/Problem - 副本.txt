@@ -1,28 +1,28 @@
 1
-QQQQQ
-A DFD
-B G
-C GS
-D GF
-答案 A
+WWWWWW
+A FDSF
+B GDSG
+C HS
+D GSHSD
+标准答案 A
 2
-YYYYY
-A FGH
-B JF
-C FD
-D HG
-答案 B
+TYUIYT
+A FGS
+B HH
+C S
+D SH
+标准答案 D
 3
-TYU
-A HD
-B SG
-C RH
-D HD
-答案 C
+SDGSH
+A FGH
+B SD
+C GSDH
+D SGSD
+标准答案 C
 4
-GHSFS
-A GHJ
-B DR
-C GJ
-D UJ
-答案 D
+GJDYHS
+A GSG
+B GG
+C SG
+D GS
+标准答案 B

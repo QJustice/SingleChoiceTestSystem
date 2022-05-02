@@ -50,41 +50,12 @@ CAdmin::CAdmin()
 
 bool CAdmin::viewQuestions()
 {
-	CProblem tmpProblem;				//临时存储题目数据
-	//临时存储题目编号，标题，选项A,选项B,选项C,选项D,答案
-	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer;
 	vector<CProblem>vccp;				//临时存储题库文件内容
-	fstream foi(pathProblem, ios::in);		//打开题库文件
-	if (!foi)				//文件异常处理
-	{
-		cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
-		system("pause");						//暂停
-		exitErrorTheSystem();				//系统异常终止
-		return false;
-	}
-	if (foi.peek() == EOF)			//文件空时特殊处理
-	{
-		cout << "题库文件空\n";
-		return false;
-	}
-	while (!foi.eof())					//遍历文件
-	{
-		getline(foi, tmpNum);			//获取题目编号
-		getline(foi, tmpTitle);			//获取题目标题
-		getline(foi, tmpA);				//获取选项A
-		getline(foi, tmpB);				//获取选项B
-		getline(foi, tmpC);				//获取选项C
-		getline(foi, tmpD);				//获取选项D
-		getline(foi, tmpAnswer);		//获取答案
-		tmpProblem.setNum(tmpNum);		//临时存储题目编号
-		tmpProblem.setTitle(tmpTitle);	//临时存储题目标题
-		tmpProblem.setA(tmpA);			//临时存储选项A
-		tmpProblem.setB(tmpB);			//临时存储选项B
-		tmpProblem.setC(tmpC);			//临时存储选项C
-		tmpProblem.setD(tmpD);			//临时存储选项D
-		tmpProblem.setAnswer(tmpAnswer);//临时存储标准答案
-		vccp.push_back(tmpProblem);		//题目内容存入vetor容器
-	}
+
+	int maxNum = 0;
+	int* ptrmaxNum = &maxNum;
+	vector<CProblem>* ptrvccp = &vccp;
+	getProblemData(ptrvccp, ptrmaxNum);
 	cout << "----------------------------------------------\n\n";
 	for (auto it = vccp.begin(); it != vccp.end(); it++)	//遍历vetor容器打印题库
 	{
@@ -96,18 +67,14 @@ bool CAdmin::viewQuestions()
 		cout << it->getD() << endl;
 		cout << it->getAnswer() << endl << endl;
 	}
-	foi.close();		//关闭文件
 
+	cout << "总共有" << maxNum << "个题目\n";
 	return true;
 }
 
 bool CAdmin::addQuestions(CProblem problemData)
 {
-	CProblem tmpProblem;				//临时存储题目数据
-	//临时存储题目编号，标题，选项A,选项B,选项C,选项D,答案
-	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer;
-	vector<CProblem>vccp;				//临时存储题库文件内容
-	fstream foi(pathProblem, ios::in | ios::out);		//打开题库文件
+	fstream foi(pathProblem, ios::in);		//打开题库文件
 	if (!foi)				//文件异常处理
 	{
 		cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
@@ -130,27 +97,24 @@ bool CAdmin::addQuestions(CProblem problemData)
 
 		return true;
 	}
-	while (!foi.eof())					//遍历文件
+	foi.close();
+
+	//文件不为空时
+	foi.open(pathProblem, ios::app);		//打开题库文件
+	if (!foi)				//文件异常处理
 	{
-		getline(foi, tmpNum);			//获取题目编号
-		getline(foi, tmpTitle);			//获取题目标题
-		getline(foi, tmpA);				//获取选项A
-		getline(foi, tmpB);				//获取选项B
-		getline(foi, tmpC);				//获取选项C
-		getline(foi, tmpD);				//获取选项D
-		getline(foi, tmpAnswer);		//获取答案
-		tmpProblem.setNum(tmpNum);		//临时存储题目编号
-		tmpProblem.setTitle(tmpTitle);	//临时存储题目标题
-		tmpProblem.setA(tmpA);			//临时存储选项A
-		tmpProblem.setB(tmpB);			//临时存储选项B
-		tmpProblem.setC(tmpC);			//临时存储选项C
-		tmpProblem.setD(tmpD);			//临时存储选项D
-		tmpProblem.setAnswer(tmpAnswer);//临时存储标准答案
-		vccp.push_back(tmpProblem);		//题目内容存入vetor容器
+		cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
+		system("pause");						//暂停
+		exitErrorTheSystem();				//系统异常终止
+		return false;
 	}
-	tmpProblem = vccp.back();			//获取题库最后一个题目
+	vector<CProblem>vccp;				//临时存储题库文件内容
+	int maxNum = 0;
+	int* ptrmaxNum = &maxNum;
+	vector<CProblem>* ptrvccp = &vccp;
+	getProblemData(ptrvccp, ptrmaxNum);
 	//根据最后题目编号更新当前题目编号
-	problemData.setNum(to_string(stoi((tmpProblem.getNum())) + 1));
+	problemData.setNum(to_string(maxNum + 1));
 	foi.clear();						//更改cin状态标识符
 	//题目数据写入文件
 	foi << endl << problemData.getNum() << endl;
@@ -167,50 +131,19 @@ bool CAdmin::addQuestions(CProblem problemData)
 
 bool CAdmin::deleteQuestions(string num)
 {
-	CProblem tmpProblem;				//临时存储题目数据
-	//临时存储题目编号，标题，选项A,选项B,选项C,选项D,答案
-	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer;
 	vector<CProblem>vccp;				//临时存储题库文件内容
-	fstream foi(pathProblem, ios::in);		//打开题库文件
-	if (!foi)				//文件异常处理
-	{
-		cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
-		system("pause");						//暂停
-		exitErrorTheSystem();				//系统异常终止
-		return false;
-	}
-	if (foi.peek() == EOF)			//文件空时特殊处理
-	{
-		cout << "题库文件空, 不需要删除\n";
-		return false;
-	}
-	while (!foi.eof())					//遍历文件
-	{
-		getline(foi, tmpNum);			//获取题目编号
-		getline(foi, tmpTitle);			//获取题目标题
-		getline(foi, tmpA);				//获取选项A
-		getline(foi, tmpB);				//获取选项B
-		getline(foi, tmpC);				//获取选项C
-		getline(foi, tmpD);				//获取选项D
-		getline(foi, tmpAnswer);		//获取答案
-		tmpProblem.setNum(tmpNum);		//临时存储题目编号
-		tmpProblem.setTitle(tmpTitle);	//临时存储题目标题
-		tmpProblem.setA(tmpA);			//临时存储选项A
-		tmpProblem.setB(tmpB);			//临时存储选项B
-		tmpProblem.setC(tmpC);			//临时存储选项C
-		tmpProblem.setD(tmpD);			//临时存储选项D
-		tmpProblem.setAnswer(tmpAnswer);//临时存储标准答案
-		vccp.push_back(tmpProblem);		//题目内容存入vetor容器
-	}
-	foi.close();
-	tmpProblem = vccp.back();			//获取题库最后一个题目
-	if (num > tmpProblem.getNum() || stoi(num) < 0) //题目编号合法判断
+	int maxNum = 0;
+	int* ptrmaxNum = &maxNum;
+	vector<CProblem>* ptrvccp = &vccp;
+	getProblemData(ptrvccp, ptrmaxNum);
+
+	if (stoi(num) > maxNum || stoi(num) < 0) //题目编号合法判断
 		cout << "题目编号越界，删除失败\n";
 	else
 	{	
 		//擦除相关编题目，vector下标是从0开始的，题目编号是从1开始的所以需要-1
 		vccp.erase(vccp.begin() + stoi(num) - 1);	
-		foi.open(pathProblem, ios::out);
+		fstream foi(pathProblem, ios::out);
 		if (!foi)				//文件异常处理
 		{
 			cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
@@ -231,7 +164,6 @@ bool CAdmin::deleteQuestions(string num)
 			foi << vccp[i].getC() << endl;
 			foi << vccp[i].getD() << endl;
 			foi << vccp[i].getAnswer();
-
 		}
 		foi.close();
 		cout << "清除完毕\n";
@@ -425,68 +357,48 @@ void Print(int* a, int n)
 
 bool CUser::testQuestions(string num)
 {
-	CProblem tmpProblem;				//临时存储题目数据
-	//临时存储题目编号，标题，选项A,选项B,选项C,选项D,答案
-	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer;
 	vector<CProblem>vccp;				//临时存储题库文件内容
-	fstream foi(pathProblem, ios::in | ios::out);		//打开题库文件
-	if (!foi)				//文件异常处理
-	{
-		cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
-		system("pause");						//暂停
-		exitErrorTheSystem();				//系统异常终止
-		return false;
-	}
-	if (foi.peek() == EOF)					//文件空时特殊处理
-	{
-		foi.clear();						//更改cin状态标识符
-		cout << "题库文件空！请联系系统管理员添加题库。\n" << endl;
-		foi.close(); //关闭文件
-		return true;
-	}
-	while (!foi.eof())					//遍历文件
-	{
-		getline(foi, tmpNum);			//获取题目编号
-		getline(foi, tmpTitle);			//获取题目标题
-		getline(foi, tmpA);				//获取选项A
-		getline(foi, tmpB);				//获取选项B
-		getline(foi, tmpC);				//获取选项C
-		getline(foi, tmpD);				//获取选项D
-		getline(foi, tmpAnswer);		//获取答案
-		tmpProblem.setNum(tmpNum);		//临时存储题目编号
-		tmpProblem.setTitle(tmpTitle);	//临时存储题目标题
-		tmpProblem.setA(tmpA);			//临时存储选项A
-		tmpProblem.setB(tmpB);			//临时存储选项B
-		tmpProblem.setC(tmpC);			//临时存储选项C
-		tmpProblem.setD(tmpD);			//临时存储选项D
-		tmpProblem.setAnswer(tmpAnswer);//临时存储标准答案
-		vccp.push_back(tmpProblem);		//题目内容存入vetor容器
-	}
-	foi.close(); //关闭文件
-
-	tmpProblem = vccp.back();			//获取题库最后一个题目
-	int maxNum = stoi((tmpProblem.getNum()));	//最大题目编号
+	int maxNum = 0;	   	               //最大题目编号
+	int* ptrmaxNum = &maxNum;
+	vector<CProblem>* ptrvccp = &vccp;
+	getProblemData(ptrvccp, ptrmaxNum);
 	int n = stoi(num);			//数组元素的个数，即生成随机数的个数
 	int* numArr = new int[n];	//保存随机抽取的题目编号
 	Random(numArr, n, 1, maxNum);	//生成随机数的通常范围为0~32767，这里通过取模控制取值为0~maxNum 
 	qsort(numArr, n, sizeof(*numArr), cmpfunc);		//库函数排序
 	Print(numArr, n);
+	double socer = 0.0;
+	double oneSocer = 100.0 / maxNum;
+
 	int i = 0;
 	for (auto it = vccp.begin(); it != vccp.end(); it++)
 	{
 		if (numArr[i] == stoi(it->getNum()))
 		{
+			i++;							//发现正确编号题目后编号数组才更新
 			cout << it->getNum() << " ";
 			cout << it->getTitle() << endl;
 			cout << it->getA() << endl;
 			cout << it->getB() << endl;
 			cout << it->getC() << endl;
 			cout << it->getD() << endl;
+			cout << "请输入你的答案：\n";
+			char ans = getUserAnswer();
 			cout << it->getAnswer() << endl;
-			i++;
+			cout << "你的答案为：" << ans << endl;
+			if (ans == it->getAnswer().back())
+			{
+				cout << "你的回答是正确的\n";
+				cout << "得分 + " << oneSocer << endl;
+				socer += oneSocer;
+				cout << "总得分 ：" << socer << endl;
+			}
+			else
+				cout << "很遗憾，回答错误，再接再厉！\n";
 			cout << endl;
 		}
 	}
+	cout << "最终得分 ：" << socer << endl;
 
 	return false;
 }

@@ -12,6 +12,8 @@
 #include "testHead.h"
 #include <conio.h>
 #include <algorithm>
+#include <cctype>
+
 
 using std::cout;
 using std::cin;
@@ -223,9 +225,6 @@ bool judgmentNumber(string& str)
 bool openMenu(string& userName, string& userType)
 {
 	cout << "拼命加载中......、\n";
-	fstream tmpfoi(tempUser, ios::out);		//关联当前用户临时文件
-	tmpfoi << userName << endl;					//临时文件中写入当前用户名
-	tmpfoi.close();							//关闭临时文件
 	systemSleep(1500);						//系统休眠
 	CAdmin admin;
 	CUser user;							
@@ -265,19 +264,19 @@ bool openMenu(string& userName, string& userType)
 				tmpProblem.setTitle(tmpTitle);
 				cout << "请输入选项A内容：\n";
 				cin >> tmpA;				//键盘读取选项A内容
-				tmpProblem.setA("A " + tmpA);	//给选项加入A前缀
+				tmpProblem.setA("A :" + tmpA);	//给选项加入A前缀
 				cout << "请输入选项B内容：\n";
 				cin >> tmpB;				//键盘读取选项B内容
-				tmpProblem.setB("B " + tmpB);	//给选项加入B前缀
+				tmpProblem.setB("B :" + tmpB);	//给选项加入B前缀
 				cout << "请输入选项C内容：\n";
 				cin >> tmpC;				//键盘读取选项C内容
-				tmpProblem.setC("C " + tmpC);	//给选项加入C前缀
+				tmpProblem.setC("C :" + tmpC);	//给选项加入C前缀
 				cout << "请输入选项D内容：\n";
 				cin >> tmpD;				//键盘读取选项D内容
-				tmpProblem.setD("D " + tmpD);	//给选项加入D前缀
-				cout << "请输入标准答案：\n";
-				cin >> tmpAnswer;			////键盘读取标准答案
-				tmpProblem.setAnswer("答案 " + tmpAnswer); //给标准答案加入前缀
+				tmpProblem.setD("D :" + tmpD);	//给选项加入D前缀
+				cout << "请输入标准答案(A(a)/B(b)/C(c)/D(d))：\n";
+				tmpAnswer = getUserAnswer();	//键盘读取标准答案,char可以赋值给string
+				tmpProblem.setAnswer("标准答案 :" + tmpAnswer); //给标准答案加入前缀
 				admin.addQuestions(tmpProblem);	//调用增加题目的函数
 				returnMenu(userName, userType);		//返回上一级菜单
 				break;
@@ -309,6 +308,7 @@ bool openMenu(string& userName, string& userType)
 					flag5 = false;					//选项二内部标记初始化
 					cout << "是否确认清空，请输入yes/no\n";
 					cin >> ans;						//用户键盘输入命令
+					ans = strToLower(ans);			//统一转换为小写
 					if (!(ans == "yes" || ans == "no"))
 					{
 						cout << "无效输入，请重新输入。\n";
@@ -334,6 +334,7 @@ bool openMenu(string& userName, string& userType)
 					flag7 = false;					//选项二内部标记初始化
 					cout << "是否确认注销，请输入yes/no\n";
 					cin >> ans;						//用户键盘输入命令
+					ans = strToLower(ans);			//统一转换为小写
 					if (!(ans == "yes" || ans == "no"))
 					{
 						cout << "无效输入，请重新输入。\n";
@@ -390,6 +391,7 @@ bool openMenu(string& userName, string& userType)
 					flag2 = false;					//选项二内部标记初始化
 					cout << "是否确认注销，请输入yes/no\n";
 					cin >> ans;						//用户键盘输入命令
+					ans = strToLower(ans);			//统一转换为小写
 					if (!(ans == "yes" || ans == "no"))
 					{
 						cout << "无效输入，请重新输入。\n";
@@ -524,4 +526,84 @@ int cmpfunc(const void* a, const void* b)
 {
 	//从小到大排序
 	return (*(int*)a - *(int*)b);
+}
+
+char getUserAnswer()
+{
+	string tmpStr = "";
+	char ans = '\0';
+	bool flag = false;		//用于标记非法输入
+	
+	do
+	{
+		flag = false;				//每次输入前都需要重置标记
+		cin >> tmpStr;				//接收所有输入
+		if (tmpStr.size() > 1)		//多字符属于非法
+			flag = true;			//标记非法
+		else
+			ans = toupper(tmpStr[0]);		//统一转换为大写方便后续非法判断
+		//非法判断
+		if (!(ans == 'A' || ans == 'B' || ans == 'C' || ans == 'D') || flag)
+		{
+			cout << "非法输入！请重新输入：\n";
+			cin.clear();					//重置cin状态，准备下一次输入
+			flag = true;			//标记非法
+		}
+
+	} while (flag);		//非法要求重新输入
+
+	return ans;				//返回用户输入的答案
+}
+
+bool getProblemData(vector<CProblem>* data, int* maxNum)
+{
+	CProblem tmpProblem;				//临时存储题目数据
+	//临时存储题目编号，标题，选项A,选项B,选项C,选项D,答案
+	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer;
+	//vector<CProblem>vccp;				//临时存储题库文件内容
+	fstream foi(pathProblem, ios::in | ios::out);		//打开题库文件
+	if (!foi)				//文件异常处理
+	{
+		cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
+		system("pause");						//暂停
+		exitErrorTheSystem();				//系统异常终止
+		return false;
+	}
+	if (foi.peek() == EOF)					//文件空时特殊处理
+	{
+		foi.clear();						//更改cin状态标识符
+		cout << "题库文件空！请联系系统管理员添加题库。\n" << endl;
+		foi.close(); //关闭文件
+		return true;
+	}
+	while (!foi.eof())					//遍历文件
+	{
+		getline(foi, tmpNum);			//获取题目编号
+		getline(foi, tmpTitle);			//获取题目标题
+		getline(foi, tmpA);				//获取选项A
+		getline(foi, tmpB);				//获取选项B
+		getline(foi, tmpC);				//获取选项C
+		getline(foi, tmpD);				//获取选项D
+		getline(foi, tmpAnswer);		//获取答案
+		tmpProblem.setNum(tmpNum);		//临时存储题目编号
+		tmpProblem.setTitle(tmpTitle);	//临时存储题目标题
+		tmpProblem.setA(tmpA);			//临时存储选项A
+		tmpProblem.setB(tmpB);			//临时存储选项B
+		tmpProblem.setC(tmpC);			//临时存储选项C
+		tmpProblem.setD(tmpD);			//临时存储选项D
+		tmpProblem.setAnswer(tmpAnswer);//临时存储标准答案
+		data->push_back(tmpProblem);		//题目内容存入vetor容器
+	}
+	foi.close(); //关闭文件
+	tmpProblem = data->back();			//获取题库最后一个题目
+	*maxNum = stoi((tmpProblem.getNum()));	//最大题目编号
+
+	return true;
+}
+
+string strToLower(string& str)
+{
+	for (string::iterator it = str.begin(); it != str.end(); it++)
+		*it = tolower(*it);
+	return str;
 }
