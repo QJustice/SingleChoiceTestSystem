@@ -140,13 +140,17 @@ bool registerNum(string& tempName)		//注册
 void systemMenu()		//主菜单
 {
 	system("cls");
-	cout << "================================================\n";
-	cout << endl;
-	cout << "=                 1.注册账号                   =\n";
-	cout << "=                 2.登录系统                   =\n";
-	cout << "=                 3.退出系统                   =\n";
-	cout << endl;
-	cout << "================================================\n";
+	cout << "|------------------------------------------------|\n";
+	cout << "|                                                |\n";
+	cout << "|            ***单项选择题测试系统***            |\n";
+	cout << "|                                                |\n";
+	cout << "|================================================|\n";
+	cout << "|                                                |\n";
+	cout << "|=                 1.注册账号                   =|\n";
+	cout << "|=                 2.登录系统                   =|\n";
+	cout << "|=                 3.退出系统                   =|\n";
+	cout << "|                                                |\n";
+	cout << "|================================================|\n";
 }
 
 void unregisteredUserMenu(string& name, string& password)
@@ -234,12 +238,12 @@ bool openMenu(string& userName, string& userType)
 	CProblem tmpProblem;		//临时存储题目数据
 	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer; //临时存储题目信息
 	string ans = "no";							//记录用户输入和相关命令
-	bool flag1 = false;						//标记选项1合法性
-	bool flag2 = false;						//标记选项2合法性
-	bool flag3 = false;						//标记选项3合法性
-	bool flag4 = false;						//标记选项4合法性
-	bool flag5 = false;						//标记选项5合法性
-	bool flag7 = false;						//标记选项7合法性
+	bool flag1 = false;						    //标记选项1合法性
+	bool flag2 = false;						    //标记选项2合法性
+	bool flag3 = false;						    //标记选项3合法性
+	bool flag4 = false;						    //标记选项4合法性
+	bool flag5 = false;						    //标记选项5合法性
+	bool flag7 = false;						    //标记选项7合法性
 	if (userType == admin.getIdentity())		//判断是否为管理员
 	{
 		admin.menu();					//管理员菜单

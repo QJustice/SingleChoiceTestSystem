@@ -26,3 +26,10 @@ B GG
 C SG
 D GS
 标准答案 B
+5
+WWWWWWWWWWWW
+A :FDG
+B :GSG
+C :H
+D :SDG
+标准答案 :D

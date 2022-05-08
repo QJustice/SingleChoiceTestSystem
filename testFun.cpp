@@ -29,18 +29,22 @@ void CAdmin::menu()
 {
 	system("cls");
 	//管理员菜单
-	cout << "================================================\n";
-	cout << endl;
-	cout << "=                 1.查看题库                   =\n";
-	cout << "=                 2.增加题目                   =\n";
-	cout << "=                 3.删减题目                   =\n";
-	cout << "=                 4.用户管理                   =\n";
-	cout << "=                 5.清空题库                   =\n";
-	cout << "=                 6.修改密码                   =\n";
-	cout << "=                 7.注销账号                   =\n";
-	cout << "=                 8.退出系统                   =\n";
-	cout << endl;
-	cout << "================================================\n";
+	cout << "|------------------------------------------------|\n";
+	cout << "|                                                |\n";
+	cout << "|    ***欢迎登录单项选择题测试系统管理后台***    |\n";
+	cout << "|                                                |\n";
+	cout << "|================================================|\n";
+	cout << "|                                                |\n";
+	cout << "|=                 1.查看题库                   =|\n";
+	cout << "|=                 2.增加题目                   =|\n";
+	cout << "|=                 3.删减题目                   =|\n";
+	cout << "|=                 4.用户管理                   =|\n";
+	cout << "|=                 5.清空题库                   =|\n";
+	cout << "|=                 6.修改密码                   =|\n";
+	cout << "|=                 7.注销账号                   =|\n";
+	cout << "|=                 8.退出系统                   =|\n";
+	cout << "|                                                |\n";
+	cout << "|================================================|\n";
 }
 
 CAdmin::CAdmin()
@@ -84,7 +88,15 @@ bool CAdmin::addQuestions(CProblem problemData)
 	}
 	if (foi.peek() == EOF)					//文件空时特殊处理
 	{
-		foi.clear();						//更改cin状态标识符
+		foi.close();
+		foi.open(pathProblem, ios::out);		//打开题库文件
+		if (!foi)				//文件异常处理
+		{
+			cout << "用户文件打开失败！请联系系统管理员。\n" << endl;
+			system("pause");						//暂停
+			exitErrorTheSystem();				//系统异常终止
+			return false;
+		}
 		problemData.setNum("1");
 		foi << problemData.getNum() << endl;
 		foi << problemData.getTitle() << endl;
@@ -218,6 +230,7 @@ void CAdmin::userManagement(string userName, CAdmin admin, string adminName)
 				flag2 = false;					//选项二内部标记初始化
 				cout << "是否确认注销，请输入yes/no\n";
 				cin >> ans;						//用户键盘输入命令
+				ans = strToLower(ans);			//统一转换为小写
 				if (!(ans == "yes" || ans == "no"))
 				{
 					cout << "无效输入，请重新输入。\n";
@@ -330,30 +343,24 @@ void CUser::menu()
 {
 	system("cls");
 	//用户菜单
-	cout << "================================================\n";
-	cout << endl;
-	cout << "=                 1.开始测试                   =\n";
-	cout << "=                 2.注销账户                   =\n";
-	cout << "=                 3.修改密码                   =\n";
-	cout << "=                 4.退出系统                   =\n";
-	cout << endl;
-	cout << "================================================\n";
+	cout << "|------------------------------------------------|\n";
+	cout << "|                                                |\n";
+	cout << "|        ***欢迎登录单项选择题测试系统***        |\n";
+	cout << "|                                                |\n";
+	cout << "|================================================|\n";
+	cout << "|                                                |\n";
+	cout << "|=                 1.开始测试                   =|\n";
+	cout << "|=                 2.注销账户                   =|\n";
+	cout << "|=                 3.修改密码                   =|\n";
+	cout << "|=                 4.退出系统                   =|\n";
+	cout << "|                                                |\n";
+	cout << "|================================================|\n";
 }
 
 CUser::CUser()
 {
 	identity = usertype;			//初始化用户标签
 }
-
-//测试函数
-/////////////////////////////////////////////////////////////
-void Print(int* a, int n)
-{
-	for (int i = 0; i < n; i++)
-		cout << a[i] << " ";
-	cout << endl;
-}
-/////////////////////////////////////////////////////////
 
 bool CUser::testQuestions(string num)
 {
@@ -363,10 +370,20 @@ bool CUser::testQuestions(string num)
 	vector<CProblem>* ptrvccp = &vccp;
 	getProblemData(ptrvccp, ptrmaxNum);
 	int n = stoi(num);			//数组元素的个数，即生成随机数的个数
+	//题目抽取数量合法判断
+	if (n > maxNum || n < 0)	
+	{
+		cout << "抽取数据数量非法\n";
+		return false;
+	}
+	if (0 == n)
+	{
+		cout << "抽取数据数量为0，系统未抽取题目\n";
+		return false;
+	}
 	int* numArr = new int[n];	//保存随机抽取的题目编号
 	Random(numArr, n, 1, maxNum);	//生成随机数的通常范围为0~32767，这里通过取模控制取值为0~maxNum 
 	qsort(numArr, n, sizeof(*numArr), cmpfunc);		//库函数排序
-	Print(numArr, n);
 	double socer = 0.0;
 	double oneSocer = 100.0 / maxNum;
 
