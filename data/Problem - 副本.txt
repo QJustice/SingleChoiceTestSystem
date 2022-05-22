@@ -1,35 +1,42 @@
 1
-WWWWWW
-A FDSF
-B GDSG
-C HS
-D GSHSD
-标准答案 A
+F
+A :AGG
+B :GA
+C :GG
+D :FAS
+标准答案 :D
 2
-TYUIYT
-A FGS
-B HH
-C S
-D SH
-标准答案 D
+FGSG
+A :GSD
+B :GG
+C :G
+D :HSD
+标准答案 :A
 3
-SDGSH
-A FGH
-B SD
-C GSDH
-D SGSD
-标准答案 C
+1 + 1 = ?
+A :2
+B :3
+C :4
+D :7
+标准答案 :A
 4
-GJDYHS
-A GSG
-B GG
-C SG
-D GS
-标准答案 B
+1 + 3 = ?
+A :2
+B :3
+C :4
+D :5
+标准答案 :C
 5
-WWWWWWWWWWWW
-A :FDG
-B :GSG
-C :H
-D :SDG
+4 + 5 = ?
+A :9
+B :6
+C :4
+D :3
+标准答案 :A
+6
+4 + 5 = ?
+A :2
+B :4
+C :6
+D :9
 标准答案 :D

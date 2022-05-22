@@ -105,7 +105,10 @@ bool CBasic::cancelAccount(string instruct, string path, string Name)
 	if (tmpit == mp.end())					//未找到相关用户
 		cout << "未找到用户文件，注销失败\n";
 	else
+	{
 		mp.erase(Name);					//删除用户信息
+		cout << "账号注销成功\n";
+	}
 	foi.clear();						//更改cin状态标识符
 	foi.close();						//关闭文件
 	foi.open(path, ios::out);			//打开注册信息文件

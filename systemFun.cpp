@@ -25,6 +25,7 @@ using std::vector;
 using std::ios;
 using std::flush;
 using std::fill;
+using std::getline;
 
 bool logOn(string& Name, string& Password)			//登录
 {
@@ -132,7 +133,8 @@ bool registerNum(string& tempName)		//注册
 	cout << "请输入密码\n";
 	tempPassword = getpassword();		//键盘读取用户输入,加密输入
 	foi.clear();									//更改cin状态标识符
-	foi << tempName << " " << tempPassword << " " << usertype << endl;		//给文件追加内容，保存注册信息
+	CUser tempUsr;
+	foi << tempName << " " << tempPassword << " " << tempUsr.getIdentity() << endl;		//给文件追加内容，保存注册信息
 	foi.close();									//关闭文件
 	return !flag;
 }
@@ -250,11 +252,11 @@ bool openMenu(string& userName, string& userType)
 		bool flag_admin = false;				//标记管理员菜单选项的选择合法性		
 		int sel = -1;						//菜单选项
 		//题目编号，标题，选项A,选项B,选项C,选项D
-
 		do
 		{
 			flag_admin = false;				//管理员菜单选项标记初始化
 			cin >> sel;					//用户键盘输入选项
+			refreshBuffer();	//清空缓冲区
 			switch (sel)
 			{
 			case 1:	
@@ -264,19 +266,19 @@ bool openMenu(string& userName, string& userType)
 			case 2:
 				tmpProblem.setNum("0");		//默认题目编号为0
 				cout << "请输入题目标题：\n";
-				cin >> tmpTitle;			//键盘读取题目标题
+				getline(cin, tmpTitle);		//键盘读取题目标题
 				tmpProblem.setTitle(tmpTitle);
 				cout << "请输入选项A内容：\n";
-				cin >> tmpA;				//键盘读取选项A内容
+				getline(cin,tmpA);				//键盘读取选项A内容
 				tmpProblem.setA("A :" + tmpA);	//给选项加入A前缀
 				cout << "请输入选项B内容：\n";
-				cin >> tmpB;				//键盘读取选项B内容
+				getline(cin, tmpB);				//键盘读取选项B内容
 				tmpProblem.setB("B :" + tmpB);	//给选项加入B前缀
 				cout << "请输入选项C内容：\n";
-				cin >> tmpC;				//键盘读取选项C内容
+				getline(cin, tmpC);				//键盘读取选项C内容
 				tmpProblem.setC("C :" + tmpC);	//给选项加入C前缀
 				cout << "请输入选项D内容：\n";
-				cin >> tmpD;				//键盘读取选项D内容
+				getline(cin, tmpD);				//键盘读取选项D内容
 				tmpProblem.setD("D :" + tmpD);	//给选项加入D前缀
 				cout << "请输入标准答案(A(a)/B(b)/C(c)/D(d))：\n";
 				tmpAnswer = getUserAnswer();	//键盘读取标准答案,char可以赋值给string
@@ -294,6 +296,7 @@ bool openMenu(string& userName, string& userType)
 					{
 						cout << "无效输入，请重新输入。\n";
 						flag3 = true;		//标记非法
+						refreshBuffer();	//清空缓冲区
 					}
 				} while (flag3);			//非法要求重新输入
 				admin.deleteQuestions(problemNum);	//调用删除题目函数
@@ -324,9 +327,9 @@ bool openMenu(string& userName, string& userType)
 				break;
 			case 6:
 				cout << "请输入旧密码：";
-				cin >> inOldPassword;			//键盘输入新密码
+				inOldPassword = getpassword();			//键盘输入旧密码
 				cout << "请输入新密码：";
-				cin >> inNewPassword;			//键盘输入旧密码
+				inNewPassword = getpassword();			//键盘输入新密码
 				//调用更改密码函数
 				admin.changPassword(userName, inOldPassword, inNewPassword, pathUser);
 				returnMenu(userName, userType);		//返回上一级菜单
@@ -429,7 +432,7 @@ bool openMenu(string& userName, string& userType)
 	}
 	else	//未知身份	
 	{
-		void unknownIdentity();
+		unknownIdentity();
 	}
 
 	return true;
