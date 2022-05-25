@@ -1,2 +1,1 @@
 D:\VSFILE\SingleChoiceTestSystem\x64\Debug\SingleChoiceTestSystem.exe
-D:\WorkSpace\VSFILE\SingleChoiceTestSystem\x64\Debug\SingleChoiceTestSystem.exe

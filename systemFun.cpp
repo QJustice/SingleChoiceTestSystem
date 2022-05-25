@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <string>
@@ -27,49 +27,49 @@ using std::flush;
 using std::fill;
 using std::getline;
 
-bool logOn(string& Name, string& Password)			//µÇÂ¼
+bool logOn(string& Name, string& Password)			//ç™»å½•
 {
 	
-	string userName;					//ÓÃ»§Ãû
-	pair<string, string>userMessage;		//ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢´æ´¢
-	map<string, pair<string, string>>mp;		//key:ÓÃ»§Ãû value:ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢
-	fstream foi(pathUser, ios::in);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
+	string userName;					//ç”¨æˆ·å
+	pair<string, string>userMessage;		//ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯å­˜å‚¨
+	map<string, pair<string, string>>mp;		//key:ç”¨æˆ·å value:ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯
+	fstream foi(pathUser, ios::in);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
 
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÓÃ»§ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exitErrorTheSystem();				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç”¨æˆ·æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exitErrorTheSystem();				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 	}
-	if (foi.peek() == EOF)			//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)			//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş¿Õ, ÇëÁªÏµÏµÍ³¹ÜÀíÔ±\n";
+		cout << "ç³»ç»Ÿæ–‡ä»¶ç©º, è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜\n";
 		return false;
 	}
-	while (!foi.eof())								//°ÑÎÄ¼ş±éÀúµ½ÎÄ¼şÎ²
+	while (!foi.eof())								//æŠŠæ–‡ä»¶éå†åˆ°æ–‡ä»¶å°¾
 	{
 		foi >> userName >> userMessage.first >> userMessage.second;
-		mp[userName] = userMessage;					//ÎÄ¼şÊı¾İ´æÈëmap
+		mp[userName] = userMessage;					//æ–‡ä»¶æ•°æ®å­˜å…¥map
 	}
-	int errortime = 0;						//ÃÜÂëÊäÈë´íÎó´ÎÊı
-	bool flag = false;						//±ê¼ÇÓÃ»§ÊÇ·ñ¿ÉÒÔ¼ÌĞøÊäÈë
+	int errortime = 0;						//å¯†ç è¾“å…¥é”™è¯¯æ¬¡æ•°
+	bool flag = false;						//æ ‡è®°ç”¨æˆ·æ˜¯å¦å¯ä»¥ç»§ç»­è¾“å…¥
 	do
 	{
-		auto tmpit = mp.find(Name);				//²éÕÒÔÚ´ËÓÃ»§ĞÅÏ¢
+		auto tmpit = mp.find(Name);				//æŸ¥æ‰¾åœ¨æ­¤ç”¨æˆ·ä¿¡æ¯
 
-		if (tmpit == mp.end())					//Î´ÕÒµ½Ïà¹ØÓÃ»§
+		if (tmpit == mp.end())					//æœªæ‰¾åˆ°ç›¸å…³ç”¨æˆ·
 		{
 			flag = true;
-			cout << "Î´×¢²áÓÃ»§,ÇëÏÈ×¢²á\n\n";
-			systemSleep(2000);					//ÏµÍ³ĞİÃß
-			cout << "¼ÓÔØÖĞÇëÉÔºó.....\n";
-			unregisteredUserMenu(Name, Password);		//µ÷ÓÃÎ´×¢²áÓÃ»§²Ëµ¥
+			cout << "æœªæ³¨å†Œç”¨æˆ·,è¯·å…ˆæ³¨å†Œ\n\n";
+			systemSleep(2000);					//ç³»ç»Ÿä¼‘çœ 
+			cout << "åŠ è½½ä¸­è¯·ç¨å.....\n";
+			unregisteredUserMenu(Name, Password);		//è°ƒç”¨æœªæ³¨å†Œç”¨æˆ·èœå•
 		}
-		else if (tmpit->second.first != Password)		//ÓÃ»§ÃûÕıÈ·´æÔÚÃÜÂë´íÎó
+		else if (tmpit->second.first != Password)		//ç”¨æˆ·åæ­£ç¡®å­˜åœ¨å¯†ç é”™è¯¯
 		{
-			if (errortime > 2)						//¼à¿ØÃÜÂë´íÎó´ÎÊı
+			if (errortime > 2)						//ç›‘æ§å¯†ç é”™è¯¯æ¬¡æ•°
 			{
-				cout << "ÃÜÂë´íÎó´ÎÊı¹ı¶à£¡£¡£¡\nÎåÃëºóÍË³öÏµÍ³¡£";
+				cout << "å¯†ç é”™è¯¯æ¬¡æ•°è¿‡å¤šï¼ï¼ï¼\näº”ç§’åé€€å‡ºç³»ç»Ÿã€‚";
 				for (int i = 5; i > 0; i--)
 				{
 					cout << endl << i << endl;
@@ -77,360 +77,360 @@ bool logOn(string& Name, string& Password)			//µÇÂ¼
 				}
 				exitSystem();
 			}
-			errortime++;					//¼ÇÂ¼ÃÜÂë´íÎó´ÎÊı
-			cout << "ÃÜÂë´íÎó\nÇëÖØĞÂÊäÈëÃÜÂë\n";
-			cout << "Äú»¹ÓĞ" << 4 - errortime << "´Î»ú»á£¡";
-			cout << "ÇëÊäÈëÃÜÂë\n";
-			systemSleep(2000);			//ÏµÍ³ĞİÃß
-			cin >> Password;			//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈëµÄÃÜÂë
-			flag = true;				//ÔÊĞíÓÃ»§ÊäÈë
+			errortime++;					//è®°å½•å¯†ç é”™è¯¯æ¬¡æ•°
+			cout << "å¯†ç é”™è¯¯\nè¯·é‡æ–°è¾“å…¥å¯†ç \n";
+			cout << "æ‚¨è¿˜æœ‰" << 4 - errortime << "æ¬¡æœºä¼šï¼";
+			cout << "è¯·è¾“å…¥å¯†ç \n";
+			systemSleep(2000);			//ç³»ç»Ÿä¼‘çœ 
+			cin >> Password;			//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥çš„å¯†ç 
+			flag = true;				//å…è®¸ç”¨æˆ·è¾“å…¥
 		}
-		else							//ÓÃ»§ÃûºÍÃÜÂë¶¼ÕıÈ·
-			openMenu(Name, tmpit->second.second);		//´ò¿ª²Ëµ¥
-	} while (flag);					//´ïµ½µÇÂ¼Ìõ¼şÌø³öÑ­»·
+		else							//ç”¨æˆ·åå’Œå¯†ç éƒ½æ­£ç¡®
+			openMenu(Name, tmpit->second.second);		//æ‰“å¼€èœå•
+	} while (flag);					//è¾¾åˆ°ç™»å½•æ¡ä»¶è·³å‡ºå¾ªç¯
 
 	return !flag;
 }
 
-bool registerNum(string& tempName)		//×¢²á
+bool registerNum(string& tempName)		//æ³¨å†Œ
 {
-	string tempPassword;				//´æ´¢ÓÃ»§ÃÜÂë
-	fstream foi(pathUser, ios::in | ios::app);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
-	string userName, userPassword, usertype;	//ÁÙÊ±´æ´¢ÓÃ»§Ãû£¬ÃÜÂë£¬ÓÃ»§ÀàĞÍ
-	vector<string>user;					//´æ´¢ÓÃ»§ĞÅÏ¢
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	string tempPassword;				//å­˜å‚¨ç”¨æˆ·å¯†ç 
+	fstream foi(pathUser, ios::in | ios::app);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
+	string userName, userPassword, usertype;	//ä¸´æ—¶å­˜å‚¨ç”¨æˆ·åï¼Œå¯†ç ï¼Œç”¨æˆ·ç±»å‹
+	vector<string>user;					//å­˜å‚¨ç”¨æˆ·ä¿¡æ¯
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÓÃ»§ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exitErrorTheSystem();				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç”¨æˆ·æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exitErrorTheSystem();				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 	}
-	if (foi.peek() == EOF)			//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)			//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş¿Õ, ÇëÁªÏµÏµÍ³¹ÜÀíÔ±\n";
+		cout << "ç³»ç»Ÿæ–‡ä»¶ç©º, è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜\n";
 		return false;
 	}
-	while (!foi.eof())								//°ÑÎÄ¼ş±éÀúµ½ÎÄ¼şÎ²
+	while (!foi.eof())								//æŠŠæ–‡ä»¶éå†åˆ°æ–‡ä»¶å°¾
 	{
-		foi >> userName >> userPassword >> usertype;	//ÁÙÊ±´æ´¢´¢ÓÃ»§Ãû£¬ÃÜÂë£¬ÓÃ»§ÀàĞÍ
-		user.push_back(userName);					//ÎÄ¼şÊı¾İ´æÈëvector
+		foi >> userName >> userPassword >> usertype;	//ä¸´æ—¶å­˜å‚¨å‚¨ç”¨æˆ·åï¼Œå¯†ç ï¼Œç”¨æˆ·ç±»å‹
+		user.push_back(userName);					//æ–‡ä»¶æ•°æ®å­˜å…¥vector
 	}
-	int flag = false;								//Òì³£±ê¼Ç
+	int flag = false;								//å¼‚å¸¸æ ‡è®°
 	do
 	{
-		flag = false;								//³õÊ¼»¯Òì³£±ê¼Ç
-		//findÓÃÅĞµ±Ç°ÓÃ»§ÃûÊÇ·ñ±»×¢²á£¬find·µ»ØµÄÊÇÈİÆ÷Î²ÄÇÃ´ËµÃ÷Ã»ÓĞÕÒµ½
-		//find·µ»ØµÄ²»ÊÇÈİÆ÷Î²ÄÇÃ´ËµÃ÷´ËÓÃ»§ÃûÒÑ´æÔÚ
+		flag = false;								//åˆå§‹åŒ–å¼‚å¸¸æ ‡è®°
+		//findç”¨åˆ¤å½“å‰ç”¨æˆ·åæ˜¯å¦è¢«æ³¨å†Œï¼Œfindè¿”å›çš„æ˜¯å®¹å™¨å°¾é‚£ä¹ˆè¯´æ˜æ²¡æœ‰æ‰¾åˆ°
+		//findè¿”å›çš„ä¸æ˜¯å®¹å™¨å°¾é‚£ä¹ˆè¯´æ˜æ­¤ç”¨æˆ·åå·²å­˜åœ¨
 		if (user.end() != find(user.begin(), user.end(), tempName))
 		{
-			flag = true;							//ÓÃ»§ÃûÒÑ±»Õ¼ÓÃ±ê¼ÇÒì³£
-			cout << "´ËÓÃ»§ÃûÒÑ´æÔÚ£¡ÇëÖØĞÂÊäÈë\n";
-			systemSleep(2000);						//ÏµÍ³ĞİÃß
-			cout << "ÇëÊäÈëÓÃ»§Ãû\n";
-			cin >> tempName;						//ÒªÇóÖØĞÂÊäÈëÓÃ»§Ãû
+			flag = true;							//ç”¨æˆ·åå·²è¢«å ç”¨æ ‡è®°å¼‚å¸¸
+			cout << "æ­¤ç”¨æˆ·åå·²å­˜åœ¨ï¼è¯·é‡æ–°è¾“å…¥\n";
+			systemSleep(2000);						//ç³»ç»Ÿä¼‘çœ 
+			cout << "è¯·è¾“å…¥ç”¨æˆ·å\n";
+			cin >> tempName;						//è¦æ±‚é‡æ–°è¾“å…¥ç”¨æˆ·å
 		}
 
-	} while (flag);									//Òì³£ÊäÈëÒªÇóÖØĞÂÊäÈë
-	cout << "ÇëÊäÈëÃÜÂë\n";
-	tempPassword = getpassword();		//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈë,¼ÓÃÜÊäÈë
-	foi.clear();									//¸ü¸Äcin×´Ì¬±êÊ¶·û
+	} while (flag);									//å¼‚å¸¸è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
+	cout << "è¯·è¾“å…¥å¯†ç \n";
+	tempPassword = getpassword();		//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥,åŠ å¯†è¾“å…¥
+	foi.clear();									//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦
 	CUser tempUsr;
-	foi << tempName << " " << tempPassword << " " << tempUsr.getIdentity() << endl;		//¸øÎÄ¼ş×·¼ÓÄÚÈİ£¬±£´æ×¢²áĞÅÏ¢
-	foi.close();									//¹Ø±ÕÎÄ¼ş
+	foi << tempName << " " << tempPassword << " " << tempUsr.getIdentity() << endl;		//ç»™æ–‡ä»¶è¿½åŠ å†…å®¹ï¼Œä¿å­˜æ³¨å†Œä¿¡æ¯
+	foi.close();									//å…³é—­æ–‡ä»¶
 	return !flag;
 }
 
-void systemMenu()		//Ö÷²Ëµ¥
+void systemMenu()		//ä¸»èœå•
 {
 	system("cls");
 	cout << "|------------------------------------------------|\n";
 	cout << "|                                                |\n";
-	cout << "|            ***µ¥ÏîÑ¡ÔñÌâ²âÊÔÏµÍ³***            |\n";
+	cout << "|            ***å•é¡¹é€‰æ‹©é¢˜æµ‹è¯•ç³»ç»Ÿ***            |\n";
 	cout << "|                                                |\n";
 	cout << "|================================================|\n";
 	cout << "|                                                |\n";
-	cout << "|=                 1.×¢²áÕËºÅ                   =|\n";
-	cout << "|=                 2.µÇÂ¼ÏµÍ³                   =|\n";
-	cout << "|=                 3.ÍË³öÏµÍ³                   =|\n";
+	cout << "|=                 1.æ³¨å†Œè´¦å·                   =|\n";
+	cout << "|=                 2.ç™»å½•ç³»ç»Ÿ                   =|\n";
+	cout << "|=                 3.é€€å‡ºç³»ç»Ÿ                   =|\n";
 	cout << "|                                                |\n";
 	cout << "|================================================|\n";
 }
 
 void unregisteredUserMenu(string& name, string& password)
 {
-	bool flag = false;							//Òì³£±ê¼Ç
-	int sel = -1;    							//²Ëµ¥Ñ¡Ïî
+	bool flag = false;							//å¼‚å¸¸æ ‡è®°
+	int sel = -1;    							//èœå•é€‰é¡¹
 	do
 	{
 		system("cls");
 		cout << "================================================\n";
 		cout << endl;
-		cout << "=                 1.ÖØĞÂÊäÈë                   =\n";
-		cout << "=                 2.×¢²áÕËºÅ                   =\n";
-		cout << "=                 3.ÍË³öÏµÍ³                   =\n";
+		cout << "=                 1.é‡æ–°è¾“å…¥                   =\n";
+		cout << "=                 2.æ³¨å†Œè´¦å·                   =\n";
+		cout << "=                 3.é€€å‡ºç³»ç»Ÿ                   =\n";
 		cout << endl;
 		cout << "================================================\n";
-		flag = 0;							//Î´×¢²áÓÃ»§²Ëµ¥Ñ¡Ïî±ê¼Ç³õÊ¼»¯
-		cin >> sel;							//ÓÃ»§¼üÅÌÊäÈëÑ¡Ïî
+		flag = 0;							//æœªæ³¨å†Œç”¨æˆ·èœå•é€‰é¡¹æ ‡è®°åˆå§‹åŒ–
+		cin >> sel;							//ç”¨æˆ·é”®ç›˜è¾“å…¥é€‰é¡¹
 		switch (sel)
 		{
 		case 1:
-			cout << "ÇëÊäÈëÓÃ»§Ãû\n";
-			cin >> name;					//ÓÃ»§ÖØĞÂ´Ó¼üÅÌÊäÈëÓÃ»§Ãû
-			cout << "ÇëÊäÈëÃÜÂë\n";
-			password = getpassword();		//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈë,¼ÓÃÜÊäÈë
+			cout << "è¯·è¾“å…¥ç”¨æˆ·å\n";
+			cin >> name;					//ç”¨æˆ·é‡æ–°ä»é”®ç›˜è¾“å…¥ç”¨æˆ·å
+			cout << "è¯·è¾“å…¥å¯†ç \n";
+			password = getpassword();		//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥,åŠ å¯†è¾“å…¥
 			break;
 		case 2:
-			cout << "ÇëÊäÈëÓÃ»§Ãû\n";
-			cin >> name;					//ÓÃ»§¼üÅÌÊäÈëÑ¡ÏîÓÃ»§Ãû
-			registerNum(name);				//µ÷ÓÃ×¢²áº¯Êı
+			cout << "è¯·è¾“å…¥ç”¨æˆ·å\n";
+			cin >> name;					//ç”¨æˆ·é”®ç›˜è¾“å…¥é€‰é¡¹ç”¨æˆ·å
+			registerNum(name);				//è°ƒç”¨æ³¨å†Œå‡½æ•°
 			break;
-		case 3: exitSystem();				//ÍË³öÏµÍ³
+		case 3: exitSystem();				//é€€å‡ºç³»ç»Ÿ
 			break;
-		default: flag = true;					//±ê¼Ç·Ç·¨ÊäÈë
+		default: flag = true;					//æ ‡è®°éæ³•è¾“å…¥
 		}
-		if (flag)						//·Ç·¨ÊäÈë
+		if (flag)						//éæ³•è¾“å…¥
 		{
-			cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë.\n";
-			cin.clear();			//¸ü¸Äcin×´Ì¬±êÊ¶·û×¼±¸½ÓÊÜÏÂÒ»´ÎµÄÊäÈë
-			systemSleep(1000);				//ÏµÍ³ĞİÃß
-			refreshBuffer();				//Ë¢ĞÂ»º³åÇø
+			cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥.\n";
+			cin.clear();			//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦å‡†å¤‡æ¥å—ä¸‹ä¸€æ¬¡çš„è¾“å…¥
+			systemSleep(1000);				//ç³»ç»Ÿä¼‘çœ 
+			refreshBuffer();				//åˆ·æ–°ç¼“å†²åŒº
 		}
-	} while (flag);					//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
+	} while (flag);					//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
 }
 
 void exitSystem()
 {
-	//³ÌĞòÕı³£ÍË³ö
+	//ç¨‹åºæ­£å¸¸é€€å‡º
 	exit(EXIT_SUCCESS);
 }
 
-void systemSleep(int stime)	//ÑÓ³ÙµÈ´ı
+void systemSleep(int stime)	//å»¶è¿Ÿç­‰å¾…
 {
-	//ÏµÍ³ĞİÃß
+	//ç³»ç»Ÿä¼‘çœ 
 	Sleep(stime);
 }
 
 bool judgmentString(string& str)
 {
-	//±éÀú×Ö·û´®
+	//éå†å­—ç¬¦ä¸²
 	for (int i = 0; i < str.size(); i++)
-		if (!isalpha(str[i]))				//Öğ¸ö×Ö·ûÅĞ¶ÏÊÇ·ñÎª×ÖÄ¸
-			return false;					//·¢ÏÖ·Ç×ÖÄ¸·µ»Øfalse
+		if (!isalpha(str[i]))				//é€ä¸ªå­—ç¬¦åˆ¤æ–­æ˜¯å¦ä¸ºå­—æ¯
+			return false;					//å‘ç°éå­—æ¯è¿”å›false
 	return true;
 }
 
 bool judgmentNumber(string& str)
 {
-	//±éÀú×Ö·û´®
+	//éå†å­—ç¬¦ä¸²
 	for (int i = 0; i < str.size(); i++)
-		if (!isdigit(str[i]))				//Öğ¸ö×Ö·ûÅĞ¶ÏÊÇ·ñÎªÊı×Ö
-			return false;					//·¢ÏÖ·ÇÊı×Ö·µ»Øfalse
+		if (!isdigit(str[i]))				//é€ä¸ªå­—ç¬¦åˆ¤æ–­æ˜¯å¦ä¸ºæ•°å­—
+			return false;					//å‘ç°éæ•°å­—è¿”å›false
 	return true;
 }
 
 bool openMenu(string& userName, string& userType)
 {
-	cout << "Æ´Ãü¼ÓÔØÖĞ......¡¢\n";
-	systemSleep(1500);						//ÏµÍ³ĞİÃß
+	cout << "æ‹¼å‘½åŠ è½½ä¸­......ã€\n";
+	systemSleep(1500);						//ç³»ç»Ÿä¼‘çœ 
 	CAdmin admin;
 	CUser user;							
-	string tmpUserName;					//ÁÙÊ±´æ´¢ÓÃ»§Ãû
-	string inOldPassword, inNewPassword;	//ÁÙÊ±´æ´¢ĞÂ¾ÉÃÜÂë
-	string problemNum;				//ÌâÄ¿ĞòºÅ
-	CProblem tmpProblem;		//ÁÙÊ±´æ´¢ÌâÄ¿Êı¾İ
-	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer; //ÁÙÊ±´æ´¢ÌâÄ¿ĞÅÏ¢
-	string ans = "no";							//¼ÇÂ¼ÓÃ»§ÊäÈëºÍÏà¹ØÃüÁî
-	bool flag1 = false;						    //±ê¼ÇÑ¡Ïî1ºÏ·¨ĞÔ
-	bool flag2 = false;						    //±ê¼ÇÑ¡Ïî2ºÏ·¨ĞÔ
-	bool flag3 = false;						    //±ê¼ÇÑ¡Ïî3ºÏ·¨ĞÔ
-	bool flag4 = false;						    //±ê¼ÇÑ¡Ïî4ºÏ·¨ĞÔ
-	bool flag5 = false;						    //±ê¼ÇÑ¡Ïî5ºÏ·¨ĞÔ
-	bool flag7 = false;						    //±ê¼ÇÑ¡Ïî7ºÏ·¨ĞÔ
-	if (userType == admin.getIdentity())		//ÅĞ¶ÏÊÇ·ñÎª¹ÜÀíÔ±
+	string tmpUserName;					//ä¸´æ—¶å­˜å‚¨ç”¨æˆ·å
+	string inOldPassword, inNewPassword;	//ä¸´æ—¶å­˜å‚¨æ–°æ—§å¯†ç 
+	string problemNum;				//é¢˜ç›®åºå·
+	CProblem tmpProblem;		//ä¸´æ—¶å­˜å‚¨é¢˜ç›®æ•°æ®
+	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer; //ä¸´æ—¶å­˜å‚¨é¢˜ç›®ä¿¡æ¯
+	string ans = "no";							//è®°å½•ç”¨æˆ·è¾“å…¥å’Œç›¸å…³å‘½ä»¤
+	bool flag1 = false;						    //æ ‡è®°é€‰é¡¹1åˆæ³•æ€§
+	bool flag2 = false;						    //æ ‡è®°é€‰é¡¹2åˆæ³•æ€§
+	bool flag3 = false;						    //æ ‡è®°é€‰é¡¹3åˆæ³•æ€§
+	bool flag4 = false;						    //æ ‡è®°é€‰é¡¹4åˆæ³•æ€§
+	bool flag5 = false;						    //æ ‡è®°é€‰é¡¹5åˆæ³•æ€§
+	bool flag7 = false;						    //æ ‡è®°é€‰é¡¹7åˆæ³•æ€§
+	if (userType == admin.getIdentity())		//åˆ¤æ–­æ˜¯å¦ä¸ºç®¡ç†å‘˜
 	{
-		admin.menu();					//¹ÜÀíÔ±²Ëµ¥
-		bool flag_admin = false;				//±ê¼Ç¹ÜÀíÔ±²Ëµ¥Ñ¡ÏîµÄÑ¡ÔñºÏ·¨ĞÔ		
-		int sel = -1;						//²Ëµ¥Ñ¡Ïî
-		//ÌâÄ¿±àºÅ£¬±êÌâ£¬Ñ¡ÏîA,Ñ¡ÏîB,Ñ¡ÏîC,Ñ¡ÏîD
+		admin.menu();					//ç®¡ç†å‘˜èœå•
+		bool flag_admin = false;				//æ ‡è®°ç®¡ç†å‘˜èœå•é€‰é¡¹çš„é€‰æ‹©åˆæ³•æ€§		
+		int sel = -1;						//èœå•é€‰é¡¹
+		//é¢˜ç›®ç¼–å·ï¼Œæ ‡é¢˜ï¼Œé€‰é¡¹A,é€‰é¡¹B,é€‰é¡¹C,é€‰é¡¹D
 		do
 		{
-			flag_admin = false;				//¹ÜÀíÔ±²Ëµ¥Ñ¡Ïî±ê¼Ç³õÊ¼»¯
-			cin >> sel;					//ÓÃ»§¼üÅÌÊäÈëÑ¡Ïî
-			refreshBuffer();	//Çå¿Õ»º³åÇø
+			flag_admin = false;				//ç®¡ç†å‘˜èœå•é€‰é¡¹æ ‡è®°åˆå§‹åŒ–
+			cin >> sel;					//ç”¨æˆ·é”®ç›˜è¾“å…¥é€‰é¡¹
+			refreshBuffer();	//æ¸…ç©ºç¼“å†²åŒº
 			switch (sel)
 			{
 			case 1:	
-				admin.viewQuestions();	//µ÷ÓÃ²é¿´Ìâ¿âº¯Êı
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				admin.viewQuestions();	//è°ƒç”¨æŸ¥çœ‹é¢˜åº“å‡½æ•°
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 2:
-				tmpProblem.setNum("0");		//Ä¬ÈÏÌâÄ¿±àºÅÎª0
-				cout << "ÇëÊäÈëÌâÄ¿±êÌâ£º\n";
-				getline(cin, tmpTitle);		//¼üÅÌ¶ÁÈ¡ÌâÄ¿±êÌâ
+				tmpProblem.setNum("0");		//é»˜è®¤é¢˜ç›®ç¼–å·ä¸º0
+				cout << "è¯·è¾“å…¥é¢˜ç›®æ ‡é¢˜ï¼š\n";
+				getline(cin, tmpTitle);		//é”®ç›˜è¯»å–é¢˜ç›®æ ‡é¢˜
 				tmpProblem.setTitle(tmpTitle);
-				cout << "ÇëÊäÈëÑ¡ÏîAÄÚÈİ£º\n";
-				getline(cin,tmpA);				//¼üÅÌ¶ÁÈ¡Ñ¡ÏîAÄÚÈİ
-				tmpProblem.setA("A :" + tmpA);	//¸øÑ¡Ïî¼ÓÈëAÇ°×º
-				cout << "ÇëÊäÈëÑ¡ÏîBÄÚÈİ£º\n";
-				getline(cin, tmpB);				//¼üÅÌ¶ÁÈ¡Ñ¡ÏîBÄÚÈİ
-				tmpProblem.setB("B :" + tmpB);	//¸øÑ¡Ïî¼ÓÈëBÇ°×º
-				cout << "ÇëÊäÈëÑ¡ÏîCÄÚÈİ£º\n";
-				getline(cin, tmpC);				//¼üÅÌ¶ÁÈ¡Ñ¡ÏîCÄÚÈİ
-				tmpProblem.setC("C :" + tmpC);	//¸øÑ¡Ïî¼ÓÈëCÇ°×º
-				cout << "ÇëÊäÈëÑ¡ÏîDÄÚÈİ£º\n";
-				getline(cin, tmpD);				//¼üÅÌ¶ÁÈ¡Ñ¡ÏîDÄÚÈİ
-				tmpProblem.setD("D :" + tmpD);	//¸øÑ¡Ïî¼ÓÈëDÇ°×º
-				cout << "ÇëÊäÈë±ê×¼´ğ°¸(A(a)/B(b)/C(c)/D(d))£º\n";
-				tmpAnswer = getUserAnswer();	//¼üÅÌ¶ÁÈ¡±ê×¼´ğ°¸,char¿ÉÒÔ¸³Öµ¸østring
-				tmpProblem.setAnswer("±ê×¼´ğ°¸ :" + tmpAnswer); //¸ø±ê×¼´ğ°¸¼ÓÈëÇ°×º
-				admin.addQuestions(tmpProblem);	//µ÷ÓÃÔö¼ÓÌâÄ¿µÄº¯Êı
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				cout << "è¯·è¾“å…¥é€‰é¡¹Aå†…å®¹ï¼š\n";
+				getline(cin,tmpA);				//é”®ç›˜è¯»å–é€‰é¡¹Aå†…å®¹
+				tmpProblem.setA("A :" + tmpA);	//ç»™é€‰é¡¹åŠ å…¥Aå‰ç¼€
+				cout << "è¯·è¾“å…¥é€‰é¡¹Bå†…å®¹ï¼š\n";
+				getline(cin, tmpB);				//é”®ç›˜è¯»å–é€‰é¡¹Bå†…å®¹
+				tmpProblem.setB("B :" + tmpB);	//ç»™é€‰é¡¹åŠ å…¥Bå‰ç¼€
+				cout << "è¯·è¾“å…¥é€‰é¡¹Cå†…å®¹ï¼š\n";
+				getline(cin, tmpC);				//é”®ç›˜è¯»å–é€‰é¡¹Cå†…å®¹
+				tmpProblem.setC("C :" + tmpC);	//ç»™é€‰é¡¹åŠ å…¥Cå‰ç¼€
+				cout << "è¯·è¾“å…¥é€‰é¡¹Då†…å®¹ï¼š\n";
+				getline(cin, tmpD);				//é”®ç›˜è¯»å–é€‰é¡¹Då†…å®¹
+				tmpProblem.setD("D :" + tmpD);	//ç»™é€‰é¡¹åŠ å…¥Då‰ç¼€
+				cout << "è¯·è¾“å…¥æ ‡å‡†ç­”æ¡ˆ(A(a)/B(b)/C(c)/D(d))ï¼š\n";
+				tmpAnswer = getUserAnswer();	//é”®ç›˜è¯»å–æ ‡å‡†ç­”æ¡ˆ,charå¯ä»¥èµ‹å€¼ç»™string
+				tmpProblem.setAnswer("æ ‡å‡†ç­”æ¡ˆ :" + tmpAnswer); //ç»™æ ‡å‡†ç­”æ¡ˆåŠ å…¥å‰ç¼€
+				admin.addQuestions(tmpProblem);	//è°ƒç”¨å¢åŠ é¢˜ç›®çš„å‡½æ•°
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 3:
 				do
 				{
-					flag3 = false;			//Ñ¡ÏîÈıÄÚ²¿±ê¼Ç³õÊ¼»¯
-					cout << "ÇëÊäÈëĞèÒªÉ¾³ıµÄÌâÄ¿±àºÅ£º\n";
-					cin >> problemNum;		//ÓÃ»§¼üÅÌÊäÈëÌâÄ¿±àºÅ
-					if (!judgmentNumber(problemNum))	//ÅĞ¶ÏÊäÈëÊÇ·ñÎªºÏ·¨Êı×Ö
+					flag3 = false;			//é€‰é¡¹ä¸‰å†…éƒ¨æ ‡è®°åˆå§‹åŒ–
+					cout << "è¯·è¾“å…¥éœ€è¦åˆ é™¤çš„é¢˜ç›®ç¼–å·ï¼š\n";
+					cin >> problemNum;		//ç”¨æˆ·é”®ç›˜è¾“å…¥é¢˜ç›®ç¼–å·
+					if (!judgmentNumber(problemNum))	//åˆ¤æ–­è¾“å…¥æ˜¯å¦ä¸ºåˆæ³•æ•°å­—
 					{
-						cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë¡£\n";
-						flag3 = true;		//±ê¼Ç·Ç·¨
-						refreshBuffer();	//Çå¿Õ»º³åÇø
+						cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n";
+						flag3 = true;		//æ ‡è®°éæ³•
+						refreshBuffer();	//æ¸…ç©ºç¼“å†²åŒº
 					}
-				} while (flag3);			//·Ç·¨ÒªÇóÖØĞÂÊäÈë
-				admin.deleteQuestions(problemNum);	//µ÷ÓÃÉ¾³ıÌâÄ¿º¯Êı
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				} while (flag3);			//éæ³•è¦æ±‚é‡æ–°è¾“å…¥
+				admin.deleteQuestions(problemNum);	//è°ƒç”¨åˆ é™¤é¢˜ç›®å‡½æ•°
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 4:	
-				cout << "ÇëÊäÈë±»²Ù×÷µÄÓÃ»§Ãû£º\n";
+				cout << "è¯·è¾“å…¥è¢«æ“ä½œçš„ç”¨æˆ·åï¼š\n";
 				cin >> tmpUserName;
 				admin.userManagement(tmpUserName, admin, userName);
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 5:
 				do
 				{
-					ans = "no";						//È·±£°²È«ĞÔÄ¬ÈÏÖ¸ÁîÎªno
-					flag5 = false;					//Ñ¡Ïî¶şÄÚ²¿±ê¼Ç³õÊ¼»¯
-					cout << "ÊÇ·ñÈ·ÈÏÇå¿Õ£¬ÇëÊäÈëyes/no\n";
-					cin >> ans;						//ÓÃ»§¼üÅÌÊäÈëÃüÁî
-					ans = strToLower(ans);			//Í³Ò»×ª»»ÎªĞ¡Ğ´
+					ans = "no";						//ç¡®ä¿å®‰å…¨æ€§é»˜è®¤æŒ‡ä»¤ä¸ºno
+					flag5 = false;					//é€‰é¡¹äºŒå†…éƒ¨æ ‡è®°åˆå§‹åŒ–
+					cout << "æ˜¯å¦ç¡®è®¤æ¸…ç©ºï¼Œè¯·è¾“å…¥yes/no\n";
+					cin >> ans;						//ç”¨æˆ·é”®ç›˜è¾“å…¥å‘½ä»¤
+					ans = strToLower(ans);			//ç»Ÿä¸€è½¬æ¢ä¸ºå°å†™
 					if (!(ans == "yes" || ans == "no"))
 					{
-						cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë¡£\n";
+						cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n";
 						flag5 = true;
 					}
-				} while (flag5);					//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
+				} while (flag5);					//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
 				admin.clearQuestions(ans, pathProblem);
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 6:
-				cout << "ÇëÊäÈë¾ÉÃÜÂë£º";
-				inOldPassword = getpassword();			//¼üÅÌÊäÈë¾ÉÃÜÂë
-				cout << "ÇëÊäÈëĞÂÃÜÂë£º";
-				inNewPassword = getpassword();			//¼üÅÌÊäÈëĞÂÃÜÂë
-				//µ÷ÓÃ¸ü¸ÄÃÜÂëº¯Êı
+				cout << "è¯·è¾“å…¥æ—§å¯†ç ï¼š";
+				inOldPassword = getpassword();			//é”®ç›˜è¾“å…¥æ—§å¯†ç 
+				cout << "è¯·è¾“å…¥æ–°å¯†ç ï¼š";
+				inNewPassword = getpassword();			//é”®ç›˜è¾“å…¥æ–°å¯†ç 
+				//è°ƒç”¨æ›´æ”¹å¯†ç å‡½æ•°
 				admin.changPassword(userName, inOldPassword, inNewPassword, pathUser);
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 7:
 				do
 				{
-					ans = "no";						//È·±£°²È«ĞÔÄ¬ÈÏÖ¸ÁîÎªno
-					flag7 = false;					//Ñ¡Ïî¶şÄÚ²¿±ê¼Ç³õÊ¼»¯
-					cout << "ÊÇ·ñÈ·ÈÏ×¢Ïú£¬ÇëÊäÈëyes/no\n";
-					cin >> ans;						//ÓÃ»§¼üÅÌÊäÈëÃüÁî
-					ans = strToLower(ans);			//Í³Ò»×ª»»ÎªĞ¡Ğ´
+					ans = "no";						//ç¡®ä¿å®‰å…¨æ€§é»˜è®¤æŒ‡ä»¤ä¸ºno
+					flag7 = false;					//é€‰é¡¹äºŒå†…éƒ¨æ ‡è®°åˆå§‹åŒ–
+					cout << "æ˜¯å¦ç¡®è®¤æ³¨é”€ï¼Œè¯·è¾“å…¥yes/no\n";
+					cin >> ans;						//ç”¨æˆ·é”®ç›˜è¾“å…¥å‘½ä»¤
+					ans = strToLower(ans);			//ç»Ÿä¸€è½¬æ¢ä¸ºå°å†™
 					if (!(ans == "yes" || ans == "no"))
 					{
-						cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë¡£\n";
+						cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n";
 						flag7 = true;
 					}
-				} while (flag7);					//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
-				admin.cancelAccount(ans, pathUser, userName);	//µ÷ÓÃÕËºÅ×¢Ïúº¯Êı
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				} while (flag7);					//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
+				admin.cancelAccount(ans, pathUser, userName);	//è°ƒç”¨è´¦å·æ³¨é”€å‡½æ•°
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
-			case 8: exitSystem();			//ÍË³öÏµÍ³
+			case 8: exitSystem();			//é€€å‡ºç³»ç»Ÿ
 				break;
-			default: flag_admin = true;		//·Ç·¨ÊäÈë»á¸Ä±äºÏ·¨ÊäÈë±ê¼Ç
+			default: flag_admin = true;		//éæ³•è¾“å…¥ä¼šæ”¹å˜åˆæ³•è¾“å…¥æ ‡è®°
 			}
-			if (flag_admin)		//·Ç·¨ÊäÈë
+			if (flag_admin)		//éæ³•è¾“å…¥
 			{
-				cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë.\n";
-				cin.clear();			//¸ü¸Äcin×´Ì¬±êÊ¶·û×¼±¸½ÓÊÜÏÂÒ»´ÎµÄÊäÈë
-				systemSleep(1000);		//ÏµÍ³ĞİÃß
-				refreshBuffer();		//Ë¢ĞÂ»º³åÇø
+				cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥.\n";
+				cin.clear();			//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦å‡†å¤‡æ¥å—ä¸‹ä¸€æ¬¡çš„è¾“å…¥
+				systemSleep(1000);		//ç³»ç»Ÿä¼‘çœ 
+				refreshBuffer();		//åˆ·æ–°ç¼“å†²åŒº
 			}
-		} while (flag_admin);			//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
+		} while (flag_admin);			//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
 	}
-	else if (userType == user.getIdentity())	//ÅĞ¶ÏÊÇ·ñÎªÓÃ»§
+	else if (userType == user.getIdentity())	//åˆ¤æ–­æ˜¯å¦ä¸ºç”¨æˆ·
 	{
-		user.menu();								//ÓÃ»§²Ëµ¥ 
-		bool flag_user = false;							//±ê¼ÇÓÃ»§²Ëµ¥Ñ¡ÏîµÄÑ¡ÔñºÏ·¨ĞÔ
-		string testNum;								//ÓÃ»§ÊäÈëµÄÌâÄ¿³éÈ¡ÊıÁ¿
-		int sel = -1;									//²Ëµ¥Ñ¡Ïî
+		user.menu();								//ç”¨æˆ·èœå• 
+		bool flag_user = false;							//æ ‡è®°ç”¨æˆ·èœå•é€‰é¡¹çš„é€‰æ‹©åˆæ³•æ€§
+		string testNum;								//ç”¨æˆ·è¾“å…¥çš„é¢˜ç›®æŠ½å–æ•°é‡
+		int sel = -1;									//èœå•é€‰é¡¹
 		do
 		{
-			flag_user = false;							//ÓÃ»§²Ëµ¥Ñ¡Ïî±ê¼Ç³õÊ¼»¯
-			cin >> sel;								//ÓÃ»§¼üÅÌÊäÈëÑ¡Ïî
+			flag_user = false;							//ç”¨æˆ·èœå•é€‰é¡¹æ ‡è®°åˆå§‹åŒ–
+			cin >> sel;								//ç”¨æˆ·é”®ç›˜è¾“å…¥é€‰é¡¹
 			switch (sel)
 			{
 			case 1:
 				do
 				{
-					flag1 = false;					//Ñ¡ÏîÒ»ÄÚ²¿±ê¼Ç³õÊ¼»¯
-					cout << "ÇëÊäÈë³éÌâÊıÁ¿£º\n";
-					cin >> testNum;					//ÓÃ»§¼üÅÌÊäÈë³éÌâÊıÁ¿	
-					if (!judgmentNumber(testNum))	//ÅĞ¶ÏÊÇ·ñºÏ·¨Êı×Ö
+					flag1 = false;					//é€‰é¡¹ä¸€å†…éƒ¨æ ‡è®°åˆå§‹åŒ–
+					cout << "è¯·è¾“å…¥æŠ½é¢˜æ•°é‡ï¼š\n";
+					cin >> testNum;					//ç”¨æˆ·é”®ç›˜è¾“å…¥æŠ½é¢˜æ•°é‡	
+					if (!judgmentNumber(testNum))	//åˆ¤æ–­æ˜¯å¦åˆæ³•æ•°å­—
 					{
-						cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë¡£\n";
+						cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n";
 						flag1 = true;
 					}
-				} while (flag1);					//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë				
+				} while (flag1);					//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥				
 				user.testQuestions(testNum);
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 2:
 				do
 				{
-					ans = "no";						//È·±£°²È«ĞÔÄ¬ÈÏÖ¸ÁîÎªno
-					flag2 = false;					//Ñ¡Ïî¶şÄÚ²¿±ê¼Ç³õÊ¼»¯
-					cout << "ÊÇ·ñÈ·ÈÏ×¢Ïú£¬ÇëÊäÈëyes/no\n";
-					cin >> ans;						//ÓÃ»§¼üÅÌÊäÈëÃüÁî
-					ans = strToLower(ans);			//Í³Ò»×ª»»ÎªĞ¡Ğ´
+					ans = "no";						//ç¡®ä¿å®‰å…¨æ€§é»˜è®¤æŒ‡ä»¤ä¸ºno
+					flag2 = false;					//é€‰é¡¹äºŒå†…éƒ¨æ ‡è®°åˆå§‹åŒ–
+					cout << "æ˜¯å¦ç¡®è®¤æ³¨é”€ï¼Œè¯·è¾“å…¥yes/no\n";
+					cin >> ans;						//ç”¨æˆ·é”®ç›˜è¾“å…¥å‘½ä»¤
+					ans = strToLower(ans);			//ç»Ÿä¸€è½¬æ¢ä¸ºå°å†™
 					if (!(ans == "yes" || ans == "no"))
 					{
-						cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë¡£\n";
+						cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n";
 						flag2 = true;
 					}
-				} while (flag2);					//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
-				user.cancelAccount(ans, pathUser, userName);	//µ÷ÓÃÕËºÅ×¢Ïúº¯Êı
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				} while (flag2);					//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
+				user.cancelAccount(ans, pathUser, userName);	//è°ƒç”¨è´¦å·æ³¨é”€å‡½æ•°
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
 			case 3:
-				cout << "ÇëÊäÈë¾ÉÃÜÂë£º";
-				cin >> inOldPassword;			//¼üÅÌÊäÈëĞÂÃÜÂë
-				cout << "ÇëÊäÈëĞÂÃÜÂë£º";
-				cin >> inNewPassword;			//¼üÅÌÊäÈë¾ÉÃÜÂë
-				//µ÷ÓÃ¸ü¸ÄÃÜÂëº¯Êı
+				cout << "è¯·è¾“å…¥æ—§å¯†ç ï¼š";
+				cin >> inOldPassword;			//é”®ç›˜è¾“å…¥æ–°å¯†ç 
+				cout << "è¯·è¾“å…¥æ–°å¯†ç ï¼š";
+				cin >> inNewPassword;			//é”®ç›˜è¾“å…¥æ—§å¯†ç 
+				//è°ƒç”¨æ›´æ”¹å¯†ç å‡½æ•°
 				user.changPassword(userName, inOldPassword, inNewPassword, pathUser);
-				returnMenu(userName, userType);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+				returnMenu(userName, userType);		//è¿”å›ä¸Šä¸€çº§èœå•
 				break;
-			case 4:	exitSystem();					//ÍË³öÏµÍ³
+			case 4:	exitSystem();					//é€€å‡ºç³»ç»Ÿ
 				break;
-			default: flag_user = true;						//·Ç·¨ÊäÈë»á¸Ä±äºÏ·¨ÊäÈë±ê¼Ç
+			default: flag_user = true;						//éæ³•è¾“å…¥ä¼šæ”¹å˜åˆæ³•è¾“å…¥æ ‡è®°
 			}
-			if (flag_user)				//·Ç·¨ÊäÈë
+			if (flag_user)				//éæ³•è¾“å…¥
 			{
-				cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë.\n";
-				cin.clear();			//¸ü¸Äcin×´Ì¬±êÊ¶·û×¼±¸½ÓÊÜÏÂÒ»´ÎµÄÊäÈë
-				systemSleep(1000);		//ÏµÍ³ĞİÃß
-				refreshBuffer();		//Ë¢ĞÂ»º³åÇø
+				cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥.\n";
+				cin.clear();			//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦å‡†å¤‡æ¥å—ä¸‹ä¸€æ¬¡çš„è¾“å…¥
+				systemSleep(1000);		//ç³»ç»Ÿä¼‘çœ 
+				refreshBuffer();		//åˆ·æ–°ç¼“å†²åŒº
 			}
-		} while (flag_user);			//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
+		} while (flag_user);			//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
 	}
-	else	//Î´ÖªÉí·İ	
+	else	//æœªçŸ¥èº«ä»½	
 	{
 		unknownIdentity();
 	}
@@ -440,98 +440,98 @@ bool openMenu(string& userName, string& userType)
 
 bool returnMenu(string& userName, string& userType)
 {
-	bool reMenuFlag = false;		//ÓÃÓÚ±ê¼Ç·Ç·¨ÊäÈë
-	system("pause");				//ÇåÆÁÇ°ÔİÍ£¸øÓÃ»§ÔÄ¶ÁÆÁÄ»µÄ»ú»á
+	bool reMenuFlag = false;		//ç”¨äºæ ‡è®°éæ³•è¾“å…¥
+	system("pause");				//æ¸…å±å‰æš‚åœç»™ç”¨æˆ·é˜…è¯»å±å¹•çš„æœºä¼š
 	do
 	{
-		system("cls");				//ÇåÆÁ
+		system("cls");				//æ¸…å±
 		cout << "================================================\n";
 		cout << endl;
-		cout << "=                 1.·µ»ØÉÏ¼¶                   =\n";
-		cout << "=                 2.ÍË³öÏµÍ³                   =\n";
+		cout << "=                 1.è¿”å›ä¸Šçº§                   =\n";
+		cout << "=                 2.é€€å‡ºç³»ç»Ÿ                   =\n";
 		cout << endl;
 		cout << "================================================\n";
-		int sel = -1;				//²Ëµ¥Ñ¡Ïî
-		cin >> sel;					//ÓÃ»§¼üÅÌÊäÈëÑ¡Ïî
+		int sel = -1;				//èœå•é€‰é¡¹
+		cin >> sel;					//ç”¨æˆ·é”®ç›˜è¾“å…¥é€‰é¡¹
 		switch (sel)
 		{
 		case 1:
-			openMenu(userName, userType);	//µ÷ÓÃ×ÔÉí´ïµ½ÖØ¿ª²Ëµ¥µÄÄ¿µÄ
+			openMenu(userName, userType);	//è°ƒç”¨è‡ªèº«è¾¾åˆ°é‡å¼€èœå•çš„ç›®çš„
 			break;
 		case 2:
-			exitSystem();			//µ÷ÓÃÍË³öÏµÍ³º¯Êı
+			exitSystem();			//è°ƒç”¨é€€å‡ºç³»ç»Ÿå‡½æ•°
 			break;
 		default:
-			reMenuFlag = true;		//±ê¼Ç·Ç·¨ÊäÈë
+			reMenuFlag = true;		//æ ‡è®°éæ³•è¾“å…¥
 		}
-		if (reMenuFlag)				//·Ç·¨ÊäÈë
+		if (reMenuFlag)				//éæ³•è¾“å…¥
 		{
-			cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë.\n";
-			cin.clear();			//¸ü¸Äcin×´Ì¬±êÊ¶·û×¼±¸½ÓÊÜÏÂÒ»´ÎµÄÊäÈë
-			systemSleep(1000);		//ÏµÍ³ĞİÃß
-			refreshBuffer();		//Ë¢ĞÂ»º³åÇø
+			cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥.\n";
+			cin.clear();			//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦å‡†å¤‡æ¥å—ä¸‹ä¸€æ¬¡çš„è¾“å…¥
+			systemSleep(1000);		//ç³»ç»Ÿä¼‘çœ 
+			refreshBuffer();		//åˆ·æ–°ç¼“å†²åŒº
 		}
-	} while (reMenuFlag);	//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
+	} while (reMenuFlag);	//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
 
 	return !reMenuFlag;
 }
 
 string getpassword()
 {
-	string str = "";		//¿Õ×Ö·û´®
-	char init = '\0';		//Ä¬ÈÏ×Ö·ûÎª¿Õ
+	string str = "";		//ç©ºå­—ç¬¦ä¸²
+	char init = '\0';		//é»˜è®¤å­—ç¬¦ä¸ºç©º
 	for (;;)
 	{
-		init = _getch();		//»ñÈ¡ÊäÈëµ«²»ÏÔÊ¾
-		if (init == VK_RETURN)   //Èç¹û¼üÈëµÄÊÇEnter ¼üÄÇÃ´»»ĞĞ²¢½áÊøÊäÈë
+		init = _getch();		//è·å–è¾“å…¥ä½†ä¸æ˜¾ç¤º
+		if (init == VK_RETURN)   //å¦‚æœé”®å…¥çš„æ˜¯Enter é”®é‚£ä¹ˆæ¢è¡Œå¹¶ç»“æŸè¾“å…¥
 		{
 			cout << endl;
 			break;
 		}
-		else if (init == VK_BACK) //Èç¹û¼üÈëµÄÊÇBACKSPACE ¼üÄÇÃ´½øĞĞÍË»Ø
+		else if (init == VK_BACK) //å¦‚æœé”®å…¥çš„æ˜¯BACKSPACE é”®é‚£ä¹ˆè¿›è¡Œé€€å›
 		{
 			cout << "\b \b" << flush;
 			str.erase(str.length() - 1);
 		}
-		else					//Õı³£ÊäÈëÊ±´òÓ¡*ºÅ
+		else					//æ­£å¸¸è¾“å…¥æ—¶æ‰“å°*å·
 		{
 			cout << "*" << flush;
-			str += init;		//°Ñ×Ö·û½ÓÈë×Ö·û´®
+			str += init;		//æŠŠå­—ç¬¦æ¥å…¥å­—ç¬¦ä¸²
 		}
 	}
 
 	return str;
 }
 
-void Random(int* arr, int num, int minNum, int maxNum)//Éú³É·¶Î§ÔÚminNum~maxNumµÄËæ»úÊı 
+void Random(int* arr, int num, int minNum, int maxNum)//ç”ŸæˆèŒƒå›´åœ¨minNum~maxNumçš„éšæœºæ•° 
 {
-	if (num == maxNum)	//³éÈ¡ÊıÁ¿ÓëÌâÄ¿ÊıÁ¿ÏàµÈÊ±²»ĞèÒªËæ»ú³éÈ¡Ö±½ÓÈ«²¿Êä³ö
+	if (num == maxNum)	//æŠ½å–æ•°é‡ä¸é¢˜ç›®æ•°é‡ç›¸ç­‰æ—¶ä¸éœ€è¦éšæœºæŠ½å–ç›´æ¥å…¨éƒ¨è¾“å‡º
 	{
 		for (int i = 0; i < num; i++)
 			arr[i] = i + 1;
 		return;
 	}
-	srand(time(NULL));  //ÉèÖÃÊ±¼äÖÖ×Ó
-	bool* flagArr = new bool[maxNum + 1];		//ÓÃÓÚ±ê¼ÇÒÑ¾­³öÏÖµÄËæ»úÊı
-	fill(flagArr, flagArr + maxNum + 1, false);		//±ê¼ÇÊı×é³õÊ¼»¯ÎªFALSE
-	int temp = 0;				//ÁÙÊ±±£´æËæ»úÊı
+	srand(time(NULL));  //è®¾ç½®æ—¶é—´ç§å­
+	bool* flagArr = new bool[maxNum + 1];		//ç”¨äºæ ‡è®°å·²ç»å‡ºç°çš„éšæœºæ•°
+	fill(flagArr, flagArr + maxNum + 1, false);		//æ ‡è®°æ•°ç»„åˆå§‹åŒ–ä¸ºFALSE
+	int temp = 0;				//ä¸´æ—¶ä¿å­˜éšæœºæ•°
 	for (int i = 0; i < num;) 
 	{
-		temp = rand() % (maxNum - minNum + 1) + minNum;//Éú³ÉÇø¼ämaxNum~lµÄËæ»úÊı 
-		if (!flagArr[temp])		//±£Ö¤Êı×ÖÎ¨Ò»ĞÔ
+		temp = rand() % (maxNum - minNum + 1) + minNum;//ç”ŸæˆåŒºé—´maxNum~lçš„éšæœºæ•° 
+		if (!flagArr[temp])		//ä¿è¯æ•°å­—å”¯ä¸€æ€§
 		{
-			flagArr[temp] = true;		//ÏÂ±êÎªÊı×Ö£¬ÔªËØÖµÎª±ê¼Ç£¬Ã¿´Î·¢ÏÖĞÂÊıÔò±ê¼Ç
-			arr[i] = temp;		//±£´æÊı×Ö
-			i++;		//·¢ÏÖĞÂÊı×Ö²¢±£´æºóËæ»úÊıÊı×éÏÂ±êºóÒÆ
+			flagArr[temp] = true;		//ä¸‹æ ‡ä¸ºæ•°å­—ï¼Œå…ƒç´ å€¼ä¸ºæ ‡è®°ï¼Œæ¯æ¬¡å‘ç°æ–°æ•°åˆ™æ ‡è®°
+			arr[i] = temp;		//ä¿å­˜æ•°å­—
+			i++;		//å‘ç°æ–°æ•°å­—å¹¶ä¿å­˜åéšæœºæ•°æ•°ç»„ä¸‹æ ‡åç§»
 		}
-		else			//²»ÊÇĞÂÊı×Ö¾ÍÌø¹ı
+		else			//ä¸æ˜¯æ–°æ•°å­—å°±è·³è¿‡
 			continue;
 	}
 }
 
 int cmpfunc(const void* a, const void* b)
 {
-	//´ÓĞ¡µ½´óÅÅĞò
+	//ä»å°åˆ°å¤§æ’åº
 	return (*(int*)a - *(int*)b);
 }
 
@@ -539,71 +539,71 @@ char getUserAnswer()
 {
 	string tmpStr = "";
 	char ans = '\0';
-	bool flag = false;		//ÓÃÓÚ±ê¼Ç·Ç·¨ÊäÈë
+	bool flag = false;		//ç”¨äºæ ‡è®°éæ³•è¾“å…¥
 	
 	do
 	{
-		flag = false;				//Ã¿´ÎÊäÈëÇ°¶¼ĞèÒªÖØÖÃ±ê¼Ç
-		cin >> tmpStr;				//½ÓÊÕËùÓĞÊäÈë
-		if (tmpStr.size() > 1)		//¶à×Ö·ûÊôÓÚ·Ç·¨
-			flag = true;			//±ê¼Ç·Ç·¨
+		flag = false;				//æ¯æ¬¡è¾“å…¥å‰éƒ½éœ€è¦é‡ç½®æ ‡è®°
+		cin >> tmpStr;				//æ¥æ”¶æ‰€æœ‰è¾“å…¥
+		if (tmpStr.size() > 1)		//å¤šå­—ç¬¦å±äºéæ³•
+			flag = true;			//æ ‡è®°éæ³•
 		else
-			ans = toupper(tmpStr[0]);		//Í³Ò»×ª»»Îª´óĞ´·½±ãºóĞø·Ç·¨ÅĞ¶Ï
-		//·Ç·¨ÅĞ¶Ï
+			ans = toupper(tmpStr[0]);		//ç»Ÿä¸€è½¬æ¢ä¸ºå¤§å†™æ–¹ä¾¿åç»­éæ³•åˆ¤æ–­
+		//éæ³•åˆ¤æ–­
 		if (!(ans == 'A' || ans == 'B' || ans == 'C' || ans == 'D') || flag)
 		{
-			cout << "·Ç·¨ÊäÈë£¡ÇëÖØĞÂÊäÈë£º\n";
-			cin.clear();					//ÖØÖÃcin×´Ì¬£¬×¼±¸ÏÂÒ»´ÎÊäÈë
-			flag = true;			//±ê¼Ç·Ç·¨
+			cout << "éæ³•è¾“å…¥ï¼è¯·é‡æ–°è¾“å…¥ï¼š\n";
+			cin.clear();					//é‡ç½®cinçŠ¶æ€ï¼Œå‡†å¤‡ä¸‹ä¸€æ¬¡è¾“å…¥
+			flag = true;			//æ ‡è®°éæ³•
 		}
 
-	} while (flag);		//·Ç·¨ÒªÇóÖØĞÂÊäÈë
+	} while (flag);		//éæ³•è¦æ±‚é‡æ–°è¾“å…¥
 
-	return ans;				//·µ»ØÓÃ»§ÊäÈëµÄ´ğ°¸
+	return ans;				//è¿”å›ç”¨æˆ·è¾“å…¥çš„ç­”æ¡ˆ
 }
 
 bool getProblemData(vector<CProblem>* data, int* maxNum)
 {
-	CProblem tmpProblem;				//ÁÙÊ±´æ´¢ÌâÄ¿Êı¾İ
-	//ÁÙÊ±´æ´¢ÌâÄ¿±àºÅ£¬±êÌâ£¬Ñ¡ÏîA,Ñ¡ÏîB,Ñ¡ÏîC,Ñ¡ÏîD,´ğ°¸
+	CProblem tmpProblem;				//ä¸´æ—¶å­˜å‚¨é¢˜ç›®æ•°æ®
+	//ä¸´æ—¶å­˜å‚¨é¢˜ç›®ç¼–å·ï¼Œæ ‡é¢˜ï¼Œé€‰é¡¹A,é€‰é¡¹B,é€‰é¡¹C,é€‰é¡¹D,ç­”æ¡ˆ
 	string tmpNum, tmpTitle, tmpA, tmpB, tmpC, tmpD, tmpAnswer;
-	//vector<CProblem>vccp;				//ÁÙÊ±´æ´¢Ìâ¿âÎÄ¼şÄÚÈİ
-	fstream foi(pathProblem, ios::in | ios::out);		//´ò¿ªÌâ¿âÎÄ¼ş
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	//vector<CProblem>vccp;				//ä¸´æ—¶å­˜å‚¨é¢˜åº“æ–‡ä»¶å†…å®¹
+	fstream foi(pathProblem, ios::in | ios::out);		//æ‰“å¼€é¢˜åº“æ–‡ä»¶
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÓÃ»§ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exitErrorTheSystem();				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç”¨æˆ·æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exitErrorTheSystem();				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 		return false;
 	}
-	if (foi.peek() == EOF)					//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)					//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
-		foi.clear();						//¸ü¸Äcin×´Ì¬±êÊ¶·û
-		cout << "Ìâ¿âÎÄ¼ş¿Õ£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±Ìí¼ÓÌâ¿â¡£\n" << endl;
-		foi.close(); //¹Ø±ÕÎÄ¼ş
+		foi.clear();						//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦
+		cout << "é¢˜åº“æ–‡ä»¶ç©ºï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜æ·»åŠ é¢˜åº“ã€‚\n" << endl;
+		foi.close(); //å…³é—­æ–‡ä»¶
 		return true;
 	}
-	while (!foi.eof())					//±éÀúÎÄ¼ş
+	while (!foi.eof())					//éå†æ–‡ä»¶
 	{
-		getline(foi, tmpNum);			//»ñÈ¡ÌâÄ¿±àºÅ
-		getline(foi, tmpTitle);			//»ñÈ¡ÌâÄ¿±êÌâ
-		getline(foi, tmpA);				//»ñÈ¡Ñ¡ÏîA
-		getline(foi, tmpB);				//»ñÈ¡Ñ¡ÏîB
-		getline(foi, tmpC);				//»ñÈ¡Ñ¡ÏîC
-		getline(foi, tmpD);				//»ñÈ¡Ñ¡ÏîD
-		getline(foi, tmpAnswer);		//»ñÈ¡´ğ°¸
-		tmpProblem.setNum(tmpNum);		//ÁÙÊ±´æ´¢ÌâÄ¿±àºÅ
-		tmpProblem.setTitle(tmpTitle);	//ÁÙÊ±´æ´¢ÌâÄ¿±êÌâ
-		tmpProblem.setA(tmpA);			//ÁÙÊ±´æ´¢Ñ¡ÏîA
-		tmpProblem.setB(tmpB);			//ÁÙÊ±´æ´¢Ñ¡ÏîB
-		tmpProblem.setC(tmpC);			//ÁÙÊ±´æ´¢Ñ¡ÏîC
-		tmpProblem.setD(tmpD);			//ÁÙÊ±´æ´¢Ñ¡ÏîD
-		tmpProblem.setAnswer(tmpAnswer);//ÁÙÊ±´æ´¢±ê×¼´ğ°¸
-		data->push_back(tmpProblem);		//ÌâÄ¿ÄÚÈİ´æÈëvetorÈİÆ÷
+		getline(foi, tmpNum);			//è·å–é¢˜ç›®ç¼–å·
+		getline(foi, tmpTitle);			//è·å–é¢˜ç›®æ ‡é¢˜
+		getline(foi, tmpA);				//è·å–é€‰é¡¹A
+		getline(foi, tmpB);				//è·å–é€‰é¡¹B
+		getline(foi, tmpC);				//è·å–é€‰é¡¹C
+		getline(foi, tmpD);				//è·å–é€‰é¡¹D
+		getline(foi, tmpAnswer);		//è·å–ç­”æ¡ˆ
+		tmpProblem.setNum(tmpNum);		//ä¸´æ—¶å­˜å‚¨é¢˜ç›®ç¼–å·
+		tmpProblem.setTitle(tmpTitle);	//ä¸´æ—¶å­˜å‚¨é¢˜ç›®æ ‡é¢˜
+		tmpProblem.setA(tmpA);			//ä¸´æ—¶å­˜å‚¨é€‰é¡¹A
+		tmpProblem.setB(tmpB);			//ä¸´æ—¶å­˜å‚¨é€‰é¡¹B
+		tmpProblem.setC(tmpC);			//ä¸´æ—¶å­˜å‚¨é€‰é¡¹C
+		tmpProblem.setD(tmpD);			//ä¸´æ—¶å­˜å‚¨é€‰é¡¹D
+		tmpProblem.setAnswer(tmpAnswer);//ä¸´æ—¶å­˜å‚¨æ ‡å‡†ç­”æ¡ˆ
+		data->push_back(tmpProblem);		//é¢˜ç›®å†…å®¹å­˜å…¥vetorå®¹å™¨
 	}
-	foi.close(); //¹Ø±ÕÎÄ¼ş
-	tmpProblem = data->back();			//»ñÈ¡Ìâ¿â×îºóÒ»¸öÌâÄ¿
-	*maxNum = stoi((tmpProblem.getNum()));	//×î´óÌâÄ¿±àºÅ
+	foi.close(); //å…³é—­æ–‡ä»¶
+	tmpProblem = data->back();			//è·å–é¢˜åº“æœ€åä¸€ä¸ªé¢˜ç›®
+	*maxNum = stoi((tmpProblem.getNum()));	//æœ€å¤§é¢˜ç›®ç¼–å·
 
 	return true;
 }

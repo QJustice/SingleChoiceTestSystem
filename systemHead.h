@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef _SYSTEMHEAD_
 #define _SYSTEMHEAD_
 
@@ -9,29 +9,29 @@
 using std::string;
 using std::vector;
 
-//ÓÃ»§ÎÄ¼şÂ·¾¶
+//ç”¨æˆ·æ–‡ä»¶è·¯å¾„
 const string pathUser = "D:/WorkSpace/VSFILE/SingleChoiceTestSystem/data/User.txt";
-//Ìâ¿âÎÄ¼şÂ·¾¶
+//é¢˜åº“æ–‡ä»¶è·¯å¾„
 const string pathProblem = "D:/WorkSpace/VSFILE/SingleChoiceTestSystem/data/Problem.txt";
 
 
-const string usertype = "user";					//ÓÃ»§Éí·İ±êÊ¶
-const string admintype = "administrators";		//¹ÜÀíÔ±Éí·İ±êÊ¶
+const string usertype = "user";					//ç”¨æˆ·èº«ä»½æ ‡è¯†
+const string admintype = "administrators";		//ç®¡ç†å‘˜èº«ä»½æ ‡è¯†
 
-bool registerNum(string& tempName);			//×¢²á
-bool logOn(string& Name, string& Password);				//µÇÂ¼
-void systemMenu();			//Ö÷²Ëµ¥
-void unregisteredUserMenu(string& name, string& password); //Î´×¢²áÓÃ»§²Ëµ¥
-void exitSystem();			//ÍË³öÏµÍ³
-void systemSleep(int stime);			//ÑÓ³ÙµÈ´ı
-bool judgmentString(string& str);		//ÅĞ¶ÏÊÇ·ñÎª×Ö·û´®
-bool judgmentNumber(string& str);			//ÅĞ¶ÏÊÇ·ñÎªÊı×Ö
-bool openMenu(string& userName, string& userType);		//¿ªÆô²Ëµ¥
-bool returnMenu(string& userName, string& userType);	//·µ»ØÉÏÒ»¼¶
-string getpassword();					//¼ÓÃÜÊäÈë
-void Random(int* arr, int num, int minNum, int maxNum);//Éú³É·¶Î§ÔÚminNum~maxNumµÄËæ»úÊı 
-int cmpfunc(const void* a, const void* b); //ÌâÄ¿±àºÅÅÅĞò·½Ê½
-char getUserAnswer();					//¶ÁÈ¡ÓÃ»§ÊäÈëµÄ´ğ°¸
-bool getProblemData(vector<CProblem>* data, int* maxNum); //»ñÈ¡Ìâ¿âÊı¾İ
-string strToLower(string& str);				//×Ö·û´®×ª»»³ÉĞ¡Ğ´
+bool registerNum(string& tempName);			//æ³¨å†Œ
+bool logOn(string& Name, string& Password);				//ç™»å½•
+void systemMenu();			//ä¸»èœå•
+void unregisteredUserMenu(string& name, string& password); //æœªæ³¨å†Œç”¨æˆ·èœå•
+void exitSystem();			//é€€å‡ºç³»ç»Ÿ
+void systemSleep(int stime);			//å»¶è¿Ÿç­‰å¾…
+bool judgmentString(string& str);		//åˆ¤æ–­æ˜¯å¦ä¸ºå­—ç¬¦ä¸²
+bool judgmentNumber(string& str);			//åˆ¤æ–­æ˜¯å¦ä¸ºæ•°å­—
+bool openMenu(string& userName, string& userType);		//å¼€å¯èœå•
+bool returnMenu(string& userName, string& userType);	//è¿”å›ä¸Šä¸€çº§
+string getpassword();					//åŠ å¯†è¾“å…¥
+void Random(int* arr, int num, int minNum, int maxNum);//ç”ŸæˆèŒƒå›´åœ¨minNum~maxNumçš„éšæœºæ•° 
+int cmpfunc(const void* a, const void* b); //é¢˜ç›®ç¼–å·æ’åºæ–¹å¼
+char getUserAnswer();					//è¯»å–ç”¨æˆ·è¾“å…¥çš„ç­”æ¡ˆ
+bool getProblemData(vector<CProblem>* data, int* maxNum); //è·å–é¢˜åº“æ•°æ®
+string strToLower(string& str);				//å­—ç¬¦ä¸²è½¬æ¢æˆå°å†™
 #endif	//_SYSTEMHEAD_

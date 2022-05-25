@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 
@@ -12,15 +12,15 @@ using std::string;
 class CBasic
 {
 protected:
-	string identity;		//Éí·İ±êÇ©
-	string userName;		//ÓÃ»§Ãû
-	string password;		//ÃÜÂë
+	string identity;		//èº«ä»½æ ‡ç­¾
+	string userName;		//ç”¨æˆ·å
+	string password;		//å¯†ç 
 public:
-	bool changPassword(string& Name, string& oldPassword, string& newPassword, string path);		//ĞŞ¸ÄÃÜÂë
-	string getUserName();		//»ñÈ¡ÓÃ»§Ãû
-	string getpassword();		//»ñÈ¡ÃÜÂë
-	string getIdentity();		//»ñÈ¡Éí·İ±êÇ©
-	bool cancelAccount(string instruct, string path, string Name);	//×¢ÏúÕË»§
+	bool changPassword(string& Name, string& oldPassword, string& newPassword, string path);		//ä¿®æ”¹å¯†ç 
+	string getUserName();		//è·å–ç”¨æˆ·å
+	string getpassword();		//è·å–å¯†ç 
+	string getIdentity();		//è·å–èº«ä»½æ ‡ç­¾
+	bool cancelAccount(string instruct, string path, string Name);	//æ³¨é”€è´¦æˆ·
 };
 
 #endif	//_BASICHEAD_

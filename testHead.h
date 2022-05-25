@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include "basicHead.h"
 
@@ -14,13 +14,13 @@ using std::string;
 class CProblem
 {
 private:
-	string num;				//ÌâÄ¿±àºÅ
-	string title;			//ÌâÄ¿
-	string A, B, C, D;		//¸÷Ñ¡Ïî´ğ°¸
-	string isAnswer;		//ÌâÄ¿´ğ°¸
+	string num;				//é¢˜ç›®ç¼–å·
+	string title;			//é¢˜ç›®
+	string A, B, C, D;		//å„é€‰é¡¹ç­”æ¡ˆ
+	string isAnswer;		//é¢˜ç›®ç­”æ¡ˆ
 
 public:
-	char answer = ' ';			//ÓÃ»§»Ø´ğµÄ´ğ°¸
+	char answer = ' ';			//ç”¨æˆ·å›ç­”çš„ç­”æ¡ˆ
 	bool setNum(string _Num);
 	bool setTitle(string _title);
 	bool setA(string _A);
@@ -44,12 +44,12 @@ public:
 
 	void menu();
 	CAdmin();
-	bool viewQuestions();				//²é¿´Ìâ¿â 
-	bool addQuestions(CProblem problemData);				//Ôö¼ÓÌâÄ¿
-	bool deleteQuestions(string num);				//É¾¼õÌâÄ¿
-	void userManagement(string userName, CAdmin admin, string adminName);				//ÓÃ»§¹ÜÀí²Ëµ¥	
-	bool resettingUserPassword(string Name, string newPassword, string path);	//ÖØÖÃÓÃ»§ÃÜÂë
-	bool clearQuestions(string instruct, string path);				//Çå¿ÕÌâ¿â
+	bool viewQuestions();				//æŸ¥çœ‹é¢˜åº“ 
+	bool addQuestions(CProblem problemData);				//å¢åŠ é¢˜ç›®
+	bool deleteQuestions(string num);				//åˆ å‡é¢˜ç›®
+	void userManagement(string userName, CAdmin admin, string adminName);				//ç”¨æˆ·ç®¡ç†èœå•	
+	bool resettingUserPassword(string Name, string newPassword, string path);	//é‡ç½®ç”¨æˆ·å¯†ç 
+	bool clearQuestions(string instruct, string path);				//æ¸…ç©ºé¢˜åº“
 };
 
 class CUser:public CBasic
@@ -59,7 +59,7 @@ public:
 
 	void menu();
 	CUser();
-	bool testQuestions(string num);				//¿ªÊ¼²âÊÔ
+	bool testQuestions(string num);				//å¼€å§‹æµ‹è¯•
 };
 
 #endif //_TESTHEAD_

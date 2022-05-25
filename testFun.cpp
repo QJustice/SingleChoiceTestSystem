@@ -1,4 +1,4 @@
-#include "testHead.h"
+ï»¿#include "testHead.h"
 #include <iostream>
 #include <fstream>
 #include "systemHead.h"
@@ -28,40 +28,40 @@ using std::size_t;
 void CAdmin::menu()
 {
 	system("cls");
-	//¹ÜÀíÔ±²Ëµ¥
+	//ç®¡ç†å‘˜èœå•
 	cout << "|------------------------------------------------|\n";
 	cout << "|                                                |\n";
-	cout << "|    ***»¶Ó­µÇÂ¼µ¥ÏîÑ¡ÔñÌâ²âÊÔÏµÍ³¹ÜÀíºóÌ¨***    |\n";
+	cout << "|    ***æ¬¢è¿ç™»å½•å•é¡¹é€‰æ‹©é¢˜æµ‹è¯•ç³»ç»Ÿç®¡ç†åå°***    |\n";
 	cout << "|                                                |\n";
 	cout << "|================================================|\n";
 	cout << "|                                                |\n";
-	cout << "|=                 1.²é¿´Ìâ¿â                   =|\n";
-	cout << "|=                 2.Ôö¼ÓÌâÄ¿                   =|\n";
-	cout << "|=                 3.É¾¼õÌâÄ¿                   =|\n";
-	cout << "|=                 4.ÓÃ»§¹ÜÀí                   =|\n";
-	cout << "|=                 5.Çå¿ÕÌâ¿â                   =|\n";
-	cout << "|=                 6.ĞŞ¸ÄÃÜÂë                   =|\n";
-	cout << "|=                 7.×¢ÏúÕËºÅ                   =|\n";
-	cout << "|=                 8.ÍË³öÏµÍ³                   =|\n";
+	cout << "|=                 1.æŸ¥çœ‹é¢˜åº“                   =|\n";
+	cout << "|=                 2.å¢åŠ é¢˜ç›®                   =|\n";
+	cout << "|=                 3.åˆ å‡é¢˜ç›®                   =|\n";
+	cout << "|=                 4.ç”¨æˆ·ç®¡ç†                   =|\n";
+	cout << "|=                 5.æ¸…ç©ºé¢˜åº“                   =|\n";
+	cout << "|=                 6.ä¿®æ”¹å¯†ç                    =|\n";
+	cout << "|=                 7.æ³¨é”€è´¦å·                   =|\n";
+	cout << "|=                 8.é€€å‡ºç³»ç»Ÿ                   =|\n";
 	cout << "|                                                |\n";
 	cout << "|================================================|\n";
 }
 
 CAdmin::CAdmin()
 {
-	identity = admintype;		//³õÊ¼»¯¹ÜÀíÔ±±êÇ©
+	identity = admintype;		//åˆå§‹åŒ–ç®¡ç†å‘˜æ ‡ç­¾
 }
 
 bool CAdmin::viewQuestions()
 {
-	vector<CProblem>vccp;				//ÁÙÊ±´æ´¢Ìâ¿âÎÄ¼şÄÚÈİ
+	vector<CProblem>vccp;				//ä¸´æ—¶å­˜å‚¨é¢˜åº“æ–‡ä»¶å†…å®¹
 
 	int maxNum = 0;
 	int* ptrmaxNum = &maxNum;
 	vector<CProblem>* ptrvccp = &vccp;
 	getProblemData(ptrvccp, ptrmaxNum);
 	cout << "----------------------------------------------\n\n";
-	for (auto it = vccp.begin(); it != vccp.end(); it++)	//±éÀúvetorÈİÆ÷´òÓ¡Ìâ¿â
+	for (auto it = vccp.begin(); it != vccp.end(); it++)	//éå†vetorå®¹å™¨æ‰“å°é¢˜åº“
 	{
 		cout << it->getNum() << " ";
 		cout << it->getTitle() << endl;
@@ -72,29 +72,29 @@ bool CAdmin::viewQuestions()
 		cout << it->getAnswer() << endl << endl;
 	}
 
-	cout << "×Ü¹²ÓĞ" << maxNum << "¸öÌâÄ¿\n";
+	cout << "æ€»å…±æœ‰" << maxNum << "ä¸ªé¢˜ç›®\n";
 	return true;
 }
 
 bool CAdmin::addQuestions(CProblem problemData)
 {
-	fstream foi(pathProblem, ios::in);		//´ò¿ªÌâ¿âÎÄ¼ş
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	fstream foi(pathProblem, ios::in);		//æ‰“å¼€é¢˜åº“æ–‡ä»¶
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÓÃ»§ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exitErrorTheSystem();				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç”¨æˆ·æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exitErrorTheSystem();				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 		return false;
 	}
-	if (foi.peek() == EOF)					//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)					//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
 		foi.close();
-		foi.open(pathProblem, ios::out);		//´ò¿ªÌâ¿âÎÄ¼ş
-		if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+		foi.open(pathProblem, ios::out);		//æ‰“å¼€é¢˜åº“æ–‡ä»¶
+		if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 		{
-			cout << "ÓÃ»§ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-			system("pause");						//ÔİÍ£
-			exitErrorTheSystem();				//ÏµÍ³Òì³£ÖÕÖ¹
+			cout << "ç”¨æˆ·æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+			system("pause");						//æš‚åœ
+			exitErrorTheSystem();				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 			return false;
 		}
 		problemData.setNum("1");
@@ -105,30 +105,37 @@ bool CAdmin::addQuestions(CProblem problemData)
 		foi << problemData.getC() << endl;
 		foi << problemData.getD() << endl;
 		foi << problemData.getAnswer();
-		foi.close(); //¹Ø±ÕÎÄ¼ş
-		cout << "Ìí¼Ó³É¹¦!" << endl;
+		foi.close(); //å…³é—­æ–‡ä»¶
+		cout << "æ·»åŠ æˆåŠŸ!" << endl;
 		return true;
 	}
 	foi.close();
 
-	//ÎÄ¼ş²»Îª¿ÕÊ±
-	foi.open(pathProblem, ios::app);		//´ò¿ªÌâ¿âÎÄ¼ş
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	//æ–‡ä»¶ä¸ä¸ºç©ºæ—¶
+	foi.open(pathProblem, ios::app);		//æ‰“å¼€é¢˜åº“æ–‡ä»¶
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÓÃ»§ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exitErrorTheSystem();				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç”¨æˆ·æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exitErrorTheSystem();				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 		return false;
 	}
-	vector<CProblem>vccp;				//ÁÙÊ±´æ´¢Ìâ¿âÎÄ¼şÄÚÈİ
+	vector<CProblem>vccp;				//ä¸´æ—¶å­˜å‚¨é¢˜åº“æ–‡ä»¶å†…å®¹
 	int maxNum = 0;
 	int* ptrmaxNum = &maxNum;
 	vector<CProblem>* ptrvccp = &vccp;
 	getProblemData(ptrvccp, ptrmaxNum);
-	//¸ù¾İ×îºóÌâÄ¿±àºÅ¸üĞÂµ±Ç°ÌâÄ¿±àºÅ
+	//é˜²æ­¢é¢˜ç›®é‡å¤æ·»åŠ 
+	for (auto it = ptrvccp->begin(); it != ptrvccp->end(); it++)
+		if (it->getAnswer() == problemData.getAnswer())
+		{
+			cout << "å½“å‰é¢˜ç›®å·²ç»åœ¨é¢˜åº“ä¸­ä¸éœ€è¦é‡å¤æ·»åŠ ï¼\n";
+			return false;
+		}
+	//æ ¹æ®æœ€åé¢˜ç›®ç¼–å·æ›´æ–°å½“å‰é¢˜ç›®ç¼–å·
 	problemData.setNum(to_string(maxNum + 1));
-	foi.clear();						//¸ü¸Äcin×´Ì¬±êÊ¶·û
-	//ÌâÄ¿Êı¾İĞ´ÈëÎÄ¼ş
+	foi.clear();						//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦
+	//é¢˜ç›®æ•°æ®å†™å…¥æ–‡ä»¶
 	foi << endl << problemData.getNum() << endl;
 	foi << problemData.getTitle() << endl;
 	foi << problemData.getA() << endl;
@@ -136,37 +143,37 @@ bool CAdmin::addQuestions(CProblem problemData)
 	foi << problemData.getC() << endl;
 	foi << problemData.getD() << endl;
 	foi << problemData.getAnswer();
-	foi.close(); //¹Ø±ÕÎÄ¼ş
-	cout << "Ìí¼Ó³É¹¦!" << endl;
+	foi.close(); //å…³é—­æ–‡ä»¶
+	cout << "æ·»åŠ æˆåŠŸ!" << endl;
 	return true;
 }
 
 bool CAdmin::deleteQuestions(string num)
 {
-	vector<CProblem>vccp;				//ÁÙÊ±´æ´¢Ìâ¿âÎÄ¼şÄÚÈİ
+	vector<CProblem>vccp;				//ä¸´æ—¶å­˜å‚¨é¢˜åº“æ–‡ä»¶å†…å®¹
 	int maxNum = 0;
 	int* ptrmaxNum = &maxNum;
 	vector<CProblem>* ptrvccp = &vccp;
 	getProblemData(ptrvccp, ptrmaxNum);
 
-	if (stoi(num) > maxNum || stoi(num) < 0) //ÌâÄ¿±àºÅºÏ·¨ÅĞ¶Ï
-		cout << "ÌâÄ¿±àºÅÔ½½ç£¬É¾³ıÊ§°Ü\n";
+	if (stoi(num) > maxNum || stoi(num) < 0) //é¢˜ç›®ç¼–å·åˆæ³•åˆ¤æ–­
+		cout << "é¢˜ç›®ç¼–å·è¶Šç•Œï¼Œåˆ é™¤å¤±è´¥\n";
 	else
 	{	
-		//²Á³ıÏà¹Ø±àÌâÄ¿£¬vectorÏÂ±êÊÇ´Ó0¿ªÊ¼µÄ£¬ÌâÄ¿±àºÅÊÇ´Ó1¿ªÊ¼µÄËùÒÔĞèÒª-1
+		//æ“¦é™¤ç›¸å…³ç¼–é¢˜ç›®ï¼Œvectorä¸‹æ ‡æ˜¯ä»0å¼€å§‹çš„ï¼Œé¢˜ç›®ç¼–å·æ˜¯ä»1å¼€å§‹çš„æ‰€ä»¥éœ€è¦-1
 		vccp.erase(vccp.begin() + stoi(num) - 1);	
 		fstream foi(pathProblem, ios::out);
-		if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+		if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 		{
-			cout << "ÓÃ»§ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-			system("pause");						//ÔİÍ£
-			exitErrorTheSystem();				//ÏµÍ³Òì³£ÖÕÖ¹
+			cout << "ç”¨æˆ·æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+			system("pause");						//æš‚åœ
+			exitErrorTheSystem();				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 			return false;
 		}
 		for (int i = 0; i < vccp.size(); i++)
 		{
-			//ÌâÄ¿Êı¾İĞ´ÈëÎÄ¼ş
-			//i´Ó0¿ªÊ¼µÄ£¬ÌâÄ¿ÏÂ±êÊÇ´Ó1¿ªÊ¼µÄËùÒÔ+1
+			//é¢˜ç›®æ•°æ®å†™å…¥æ–‡ä»¶
+			//iä»0å¼€å§‹çš„ï¼Œé¢˜ç›®ä¸‹æ ‡æ˜¯ä»1å¼€å§‹çš„æ‰€ä»¥+1
 			if (i != 0)
 				foi << endl;
 			foi << i + 1 << endl;
@@ -178,7 +185,7 @@ bool CAdmin::deleteQuestions(string num)
 			foi << vccp[i].getAnswer();
 		}
 		foi.close();
-		cout << "Çå³ıÍê±Ï\n";
+		cout << "æ¸…é™¤å®Œæ¯•\n";
 	}
 
 	return true;
@@ -187,153 +194,153 @@ bool CAdmin::deleteQuestions(string num)
 void CAdmin::userManagement(string userName, CAdmin admin, string adminName)
 {
 	system("cls");
-	//ÓÃ»§¹ÜÀí²Ëµ¥
+	//ç”¨æˆ·ç®¡ç†èœå•
 	cout << "================================================\n";
 	cout << endl;
-	cout << "=                 1.ÖØÖÃÃÜÂë                   =\n";
-	cout << "=                 2.É¾³ıÕË»§                   =\n";
-	cout << "=                 3.·µ»ØÉÏ¼¶                   =\n";
-	cout << "=                 4.ÍË³öÏµÍ³                   =\n";
+	cout << "=                 1.é‡ç½®å¯†ç                    =\n";
+	cout << "=                 2.åˆ é™¤è´¦æˆ·                   =\n";
+	cout << "=                 3.è¿”å›ä¸Šçº§                   =\n";
+	cout << "=                 4.é€€å‡ºç³»ç»Ÿ                   =\n";
 	cout << endl;
 	cout << "================================================\n";
 	
-	string ans = "no";							//¼ÇÂ¼ÓÃ»§ÊäÈëºÍÏà¹ØÃüÁî
-	bool flag2 = false;						//±ê¼ÇÑ¡Ïî2ºÏ·¨ĞÔ
-	string inNewPassword;					//ĞÂÃÜÂë
-	bool flag_userManagement = false;				//±ê¼ÇÓÃ»§¹ÜÀí²Ëµ¥Ñ¡ÏîµÄÑ¡ÔñºÏ·¨ĞÔ
-	int sel = -1;									//²Ëµ¥Ñ¡Ïî
+	string ans = "no";							//è®°å½•ç”¨æˆ·è¾“å…¥å’Œç›¸å…³å‘½ä»¤
+	bool flag2 = false;						//æ ‡è®°é€‰é¡¹2åˆæ³•æ€§
+	string inNewPassword;					//æ–°å¯†ç 
+	bool flag_userManagement = false;				//æ ‡è®°ç”¨æˆ·ç®¡ç†èœå•é€‰é¡¹çš„é€‰æ‹©åˆæ³•æ€§
+	int sel = -1;									//èœå•é€‰é¡¹
 	do
 	{
-		flag_userManagement = false;							//ÓÃ»§²Ëµ¥¹ÜÀíÑ¡Ïî±ê¼Ç³õÊ¼»¯
-		cin >> sel;								//ÓÃ»§¼üÅÌÊäÈëÑ¡Ïî
+		flag_userManagement = false;							//ç”¨æˆ·èœå•ç®¡ç†é€‰é¡¹æ ‡è®°åˆå§‹åŒ–
+		cin >> sel;								//ç”¨æˆ·é”®ç›˜è¾“å…¥é€‰é¡¹
 		switch (sel)
 		{
 		case 1:
-			cout << "ÇëÊäÈëĞÂÃÜÂë£º";
-			inNewPassword = getpassword();			//¼üÅÌÊäÈë¾ÉÃÜÂë
-			//µ÷ÓÃ¸ü¸ÄÃÜÂëº¯Êı
+			cout << "è¯·è¾“å…¥æ–°å¯†ç ï¼š";
+			inNewPassword = getpassword();			//é”®ç›˜è¾“å…¥æ—§å¯†ç 
+			//è°ƒç”¨æ›´æ”¹å¯†ç å‡½æ•°
 			system("cls");
 			admin.resettingUserPassword(userName,inNewPassword, pathUser);
-			cout << "ÈıÃëºó×Ô¶¯·µ»ØÉÏÒ»¼¶²Ëµ¥¡£\n";
+			cout << "ä¸‰ç§’åè‡ªåŠ¨è¿”å›ä¸Šä¸€çº§èœå•ã€‚\n";
 			for (int i = 3; i > 0; i--)
 			{
 				cout << endl << i << endl;
 				systemSleep(1000);
 			}
-			admin.userManagement(userName, admin, userName);		//×Ô¶¯·µ»ØÉÏÒ»¼¶²Ëµ¥
+			admin.userManagement(userName, admin, userName);		//è‡ªåŠ¨è¿”å›ä¸Šä¸€çº§èœå•
 			break;
 			
 		case 2:
 			do
 			{
-				ans = "no";						//È·±£°²È«ĞÔÄ¬ÈÏÖ¸ÁîÎªno
-				flag2 = false;					//Ñ¡Ïî¶şÄÚ²¿±ê¼Ç³õÊ¼»¯
-				cout << "ÊÇ·ñÈ·ÈÏ×¢Ïú£¬ÇëÊäÈëyes/no\n";
-				cin >> ans;						//ÓÃ»§¼üÅÌÊäÈëÃüÁî
-				ans = strToLower(ans);			//Í³Ò»×ª»»ÎªĞ¡Ğ´
+				ans = "no";						//ç¡®ä¿å®‰å…¨æ€§é»˜è®¤æŒ‡ä»¤ä¸ºno
+				flag2 = false;					//é€‰é¡¹äºŒå†…éƒ¨æ ‡è®°åˆå§‹åŒ–
+				cout << "æ˜¯å¦ç¡®è®¤æ³¨é”€ï¼Œè¯·è¾“å…¥yes/no\n";
+				cin >> ans;						//ç”¨æˆ·é”®ç›˜è¾“å…¥å‘½ä»¤
+				ans = strToLower(ans);			//ç»Ÿä¸€è½¬æ¢ä¸ºå°å†™
 				if (!(ans == "yes" || ans == "no"))
 				{
-					cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë¡£\n";
+					cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n";
 					flag2 = true;
 				}
-			} while (flag2);					//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
+			} while (flag2);					//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
 			system("cls");
-			admin.cancelAccount(ans, pathUser, userName);	//µ÷ÓÃÕËºÅ×¢Ïúº¯Êı
-			cout << "ÈıÃëºó×Ô¶¯·µ»ØÉÏÒ»¼¶²Ëµ¥¡£\n";
+			admin.cancelAccount(ans, pathUser, userName);	//è°ƒç”¨è´¦å·æ³¨é”€å‡½æ•°
+			cout << "ä¸‰ç§’åè‡ªåŠ¨è¿”å›ä¸Šä¸€çº§èœå•ã€‚\n";
 			for (int i = 3; i > 0; i--)
 			{
 				cout << endl << i << endl;
 				systemSleep(1000);
 			}
-			admin.userManagement(userName, admin, userName);		//×Ô¶¯·µ»ØÉÏÒ»¼¶²Ëµ¥
+			admin.userManagement(userName, admin, userName);		//è‡ªåŠ¨è¿”å›ä¸Šä¸€çº§èœå•
 			break;
-		case 3:	openMenu(adminName, admin.identity);		//·µ»ØÉÏÒ»¼¶²Ëµ¥
+		case 3:	openMenu(adminName, admin.identity);		//è¿”å›ä¸Šä¸€çº§èœå•
 			break;
-		case 4:	exitSystem();					//ÍË³öÏµÍ³
+		case 4:	exitSystem();					//é€€å‡ºç³»ç»Ÿ
 			break;
-		default: flag_userManagement = true;						//·Ç·¨ÊäÈë»á¸Ä±äºÏ·¨ÊäÈë±ê¼Ç
+		default: flag_userManagement = true;						//éæ³•è¾“å…¥ä¼šæ”¹å˜åˆæ³•è¾“å…¥æ ‡è®°
 		}
-		if (flag_userManagement)				//·Ç·¨ÊäÈë
+		if (flag_userManagement)				//éæ³•è¾“å…¥
 		{
-			cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë.\n";
-			cin.clear();			//¸ü¸Äcin×´Ì¬±êÊ¶·û×¼±¸½ÓÊÜÏÂÒ»´ÎµÄÊäÈë
-			systemSleep(1000);		//ÏµÍ³ĞİÃß
-			refreshBuffer();		//Ë¢ĞÂ»º³åÇø
+			cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥.\n";
+			cin.clear();			//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦å‡†å¤‡æ¥å—ä¸‹ä¸€æ¬¡çš„è¾“å…¥
+			systemSleep(1000);		//ç³»ç»Ÿä¼‘çœ 
+			refreshBuffer();		//åˆ·æ–°ç¼“å†²åŒº
 		}
-	} while (flag_userManagement);			//·Ç·¨ÊäÈëÒªÇóÖØĞÂÊäÈë
+	} while (flag_userManagement);			//éæ³•è¾“å…¥è¦æ±‚é‡æ–°è¾“å…¥
 }
 
 bool CAdmin::resettingUserPassword(string Name, string newPassword, string path)
 {
-	string userName;			//ÓÃ»§Ãû´æ´¢
-	pair<string, string>userMessage;		//ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢´æ´¢
-	map<string, pair<string, string>>mp;	//key:ÓÃ»§Ãû value:ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢
-	fstream foi(path, ios::in);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
+	string userName;			//ç”¨æˆ·åå­˜å‚¨
+	pair<string, string>userMessage;		//ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯å­˜å‚¨
+	map<string, pair<string, string>>mp;	//key:ç”¨æˆ·å value:ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯
+	fstream foi(path, ios::in);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
 	fstream fwoi;
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exit(EXIT_FAILURE);				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç³»ç»Ÿæ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exit(EXIT_FAILURE);				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 	}
-	if (foi.peek() == EOF)			//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)			//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş¿Õ, ÇëÁªÏµÏµÍ³¹ÜÀíÔ±\n";
+		cout << "ç³»ç»Ÿæ–‡ä»¶ç©º, è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜\n";
 		return false;
 	}
-	while (!foi.eof())								//°ÑÎÄ¼ş±éÀúµ½ÎÄ¼şÎ²
+	while (!foi.eof())								//æŠŠæ–‡ä»¶éå†åˆ°æ–‡ä»¶å°¾
 	{
-		foi >> userName >> userMessage.first >> userMessage.second; //Ğ´ÈëÁÙÊ±±äÁ¿
-		mp[userName] = userMessage;					//ÎÄ¼şÊı¾İ´æÈëmap
+		foi >> userName >> userMessage.first >> userMessage.second; //å†™å…¥ä¸´æ—¶å˜é‡
+		mp[userName] = userMessage;					//æ–‡ä»¶æ•°æ®å­˜å…¥map
 	}
-	auto tmpit = mp.find(Name);				//²éÕÒÔÚ´ËÓÃ»§ĞÅÏ¢
+	auto tmpit = mp.find(Name);				//æŸ¥æ‰¾åœ¨æ­¤ç”¨æˆ·ä¿¡æ¯
 
-	if (tmpit == mp.end())					//Î´ÕÒµ½Ïà¹ØÓÃ»§
-		cout << "Î´ÕÒµ½Ïà¹ØÓÃ»§\n";
-	else    //ÖØÖÃÃÜÂë²»ĞèÒªĞÂ¾ÉÃÜÂë±È¶Ô
+	if (tmpit == mp.end())					//æœªæ‰¾åˆ°ç›¸å…³ç”¨æˆ·
+		cout << "æœªæ‰¾åˆ°ç›¸å…³ç”¨æˆ·\n";
+	else    //é‡ç½®å¯†ç ä¸éœ€è¦æ–°æ—§å¯†ç æ¯”å¯¹
 	{
-		tmpit->second.first = newPassword;		//Ìæ»»¾ÉÃÜÂë
-		fwoi.open(path, ios::out);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
-		for (auto it = mp.begin(); it != mp.end(); it++)	//Ğ´Èë¸üĞÂºóµÄÊı¾İ
+		tmpit->second.first = newPassword;		//æ›¿æ¢æ—§å¯†ç 
+		fwoi.open(path, ios::out);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
+		for (auto it = mp.begin(); it != mp.end(); it++)	//å†™å…¥æ›´æ–°åçš„æ•°æ®
 			fwoi << it->first << " " << it->second.first << " " << it->second.second << endl;
-		fwoi.close();						//¹Ø±ÕÎÄ¼ş
-		cout << "ÃÜÂëÖØÖÃ³É¹¦\n";
+		fwoi.close();						//å…³é—­æ–‡ä»¶
+		cout << "å¯†ç é‡ç½®æˆåŠŸ\n";
 	}
-	foi.clear();						//¸ü¸Äcin×´Ì¬±êÊ¶·û
-	foi.close();						//¹Ø±ÕÎÄ¼ş
+	foi.clear();						//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦
+	foi.close();						//å…³é—­æ–‡ä»¶
 
 	return false;
 }
 
 bool CAdmin::clearQuestions(string instruct, string path)
 {
-	if (instruct == "no")		//³·Ïú²Ù×÷
+	if (instruct == "no")		//æ’¤é”€æ“ä½œ
 	{
-		cout << "²Ù×÷ÒÑ³·Ïú\n";
+		cout << "æ“ä½œå·²æ’¤é”€\n";
 		return false;
 	}
-	fstream foi(path, ios::out || ios :: in);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	fstream foi(path, ios::out || ios :: in);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exit(EXIT_FAILURE);				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç³»ç»Ÿæ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exit(EXIT_FAILURE);				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 	}
-	if (foi.peek() == EOF)			//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)			//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş¿Õ, ²»ĞèÒªÇå¿Õ\n";
+		cout << "ç³»ç»Ÿæ–‡ä»¶ç©º, ä¸éœ€è¦æ¸…ç©º\n";
 		return false;
 	}
 	foi.close();
-	foi.open(path, ios::out);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	foi.open(path, ios::out);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exit(EXIT_FAILURE);				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç³»ç»Ÿæ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exit(EXIT_FAILURE);				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 	}
 	foi << "";
-	cout << "Ìâ¿âÒÑÇå¿Õ\n";
+	cout << "é¢˜åº“å·²æ¸…ç©º\n";
 	foi.close();
 	return false;
 }
@@ -341,48 +348,48 @@ bool CAdmin::clearQuestions(string instruct, string path)
 void CUser::menu()
 {
 	system("cls");
-	//ÓÃ»§²Ëµ¥
+	//ç”¨æˆ·èœå•
 	cout << "|------------------------------------------------|\n";
 	cout << "|                                                |\n";
-	cout << "|        ***»¶Ó­µÇÂ¼µ¥ÏîÑ¡ÔñÌâ²âÊÔÏµÍ³***        |\n";
+	cout << "|        ***æ¬¢è¿ç™»å½•å•é¡¹é€‰æ‹©é¢˜æµ‹è¯•ç³»ç»Ÿ***        |\n";
 	cout << "|                                                |\n";
 	cout << "|================================================|\n";
 	cout << "|                                                |\n";
-	cout << "|=                 1.¿ªÊ¼²âÊÔ                   =|\n";
-	cout << "|=                 2.×¢ÏúÕË»§                   =|\n";
-	cout << "|=                 3.ĞŞ¸ÄÃÜÂë                   =|\n";
-	cout << "|=                 4.ÍË³öÏµÍ³                   =|\n";
+	cout << "|=                 1.å¼€å§‹æµ‹è¯•                   =|\n";
+	cout << "|=                 2.æ³¨é”€è´¦æˆ·                   =|\n";
+	cout << "|=                 3.ä¿®æ”¹å¯†ç                    =|\n";
+	cout << "|=                 4.é€€å‡ºç³»ç»Ÿ                   =|\n";
 	cout << "|                                                |\n";
 	cout << "|================================================|\n";
 }
 
 CUser::CUser()
 {
-	identity = usertype;			//³õÊ¼»¯ÓÃ»§±êÇ©
+	identity = usertype;			//åˆå§‹åŒ–ç”¨æˆ·æ ‡ç­¾
 }
 
 bool CUser::testQuestions(string num)
 {
-	vector<CProblem>vccp;				//ÁÙÊ±´æ´¢Ìâ¿âÎÄ¼şÄÚÈİ
-	int maxNum = 0;	   	               //×î´óÌâÄ¿±àºÅ
+	vector<CProblem>vccp;				//ä¸´æ—¶å­˜å‚¨é¢˜åº“æ–‡ä»¶å†…å®¹
+	int maxNum = 0;	   	               //æœ€å¤§é¢˜ç›®ç¼–å·
 	int* ptrmaxNum = &maxNum;
 	vector<CProblem>* ptrvccp = &vccp;
 	getProblemData(ptrvccp, ptrmaxNum);
-	int n = stoi(num);			//Êı×éÔªËØµÄ¸öÊı£¬¼´Éú³ÉËæ»úÊıµÄ¸öÊı
-	//ÌâÄ¿³éÈ¡ÊıÁ¿ºÏ·¨ÅĞ¶Ï
+	int n = stoi(num);			//æ•°ç»„å…ƒç´ çš„ä¸ªæ•°ï¼Œå³ç”Ÿæˆéšæœºæ•°çš„ä¸ªæ•°
+	//é¢˜ç›®æŠ½å–æ•°é‡åˆæ³•åˆ¤æ–­
 	if (n > maxNum || n < 0)	
 	{
-		cout << "³éÈ¡Êı¾İÊıÁ¿·Ç·¨\n";
+		cout << "æŠ½å–æ•°æ®æ•°é‡éæ³•\n";
 		return false;
 	}
 	if (0 == n)
 	{
-		cout << "³éÈ¡Êı¾İÊıÁ¿Îª0£¬ÏµÍ³Î´³éÈ¡ÌâÄ¿\n";
+		cout << "æŠ½å–æ•°æ®æ•°é‡ä¸º0ï¼Œç³»ç»ŸæœªæŠ½å–é¢˜ç›®\n";
 		return false;
 	}
-	int* numArr = new int[n];	//±£´æËæ»ú³éÈ¡µÄÌâÄ¿±àºÅ
-	Random(numArr, n, 1, maxNum);	//Éú³ÉËæ»úÊıµÄÍ¨³£·¶Î§Îª0~32767£¬ÕâÀïÍ¨¹ıÈ¡Ä£¿ØÖÆÈ¡ÖµÎª0~maxNum 
-	qsort(numArr, n, sizeof(*numArr), cmpfunc);		//¿âº¯ÊıÅÅĞò
+	int* numArr = new int[n];	//ä¿å­˜éšæœºæŠ½å–çš„é¢˜ç›®ç¼–å·
+	Random(numArr, n, 1, maxNum);	//ç”Ÿæˆéšæœºæ•°çš„é€šå¸¸èŒƒå›´ä¸º0~32767ï¼Œè¿™é‡Œé€šè¿‡å–æ¨¡æ§åˆ¶å–å€¼ä¸º0~maxNum 
+	qsort(numArr, n, sizeof(*numArr), cmpfunc);		//åº“å‡½æ•°æ’åº
 	double socer = 0.0;
 	double oneSocer = 100.0 / maxNum;
 
@@ -391,30 +398,30 @@ bool CUser::testQuestions(string num)
 	{
 		if (numArr[i] == stoi(it->getNum()))
 		{
-			i++;							//·¢ÏÖÕıÈ·±àºÅÌâÄ¿ºó±àºÅÊı×é²Å¸üĞÂ
+			i++;							//å‘ç°æ­£ç¡®ç¼–å·é¢˜ç›®åç¼–å·æ•°ç»„æ‰æ›´æ–°
 			cout << it->getNum() << " ";
 			cout << it->getTitle() << endl;
 			cout << it->getA() << endl;
 			cout << it->getB() << endl;
 			cout << it->getC() << endl;
 			cout << it->getD() << endl;
-			cout << "ÇëÊäÈëÄãµÄ´ğ°¸£º\n";
+			cout << "è¯·è¾“å…¥ä½ çš„ç­”æ¡ˆï¼š\n";
 			char ans = getUserAnswer();
 			cout << it->getAnswer() << endl;
-			cout << "ÄãµÄ´ğ°¸Îª£º" << ans << endl;
+			cout << "ä½ çš„ç­”æ¡ˆä¸ºï¼š" << ans << endl;
 			if (ans == it->getAnswer().back())
 			{
-				cout << "ÄãµÄ»Ø´ğÊÇÕıÈ·µÄ\n";
-				cout << "µÃ·Ö + " << oneSocer << endl;
+				cout << "ä½ çš„å›ç­”æ˜¯æ­£ç¡®çš„\n";
+				cout << "å¾—åˆ† + " << oneSocer << endl;
 				socer += oneSocer;
-				cout << "×ÜµÃ·Ö £º" << socer << endl;
+				cout << "æ€»å¾—åˆ† ï¼š" << socer << endl;
 			}
 			else
-				cout << "ºÜÒÅº¶£¬»Ø´ğ´íÎó£¬ÔÙ½ÓÔÙÀ÷£¡\n";
+				cout << "å¾ˆé—æ†¾ï¼Œå›ç­”é”™è¯¯ï¼Œå†æ¥å†å‰ï¼\n";
 			cout << endl;
 		}
 	}
-	cout << "×îÖÕµÃ·Ö £º" << socer << endl;
+	cout << "æœ€ç»ˆå¾—åˆ† ï¼š" << socer << endl;
 
 	return false;
 }

@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 #ifndef _ERROREXCEPTION_
 #define _ERROREXCEPTION_
 
-//Òì³£´¦Àí
+//å¼‚å¸¸å¤„ç†
 
-void exitErrorTheSystem();		//³ÌĞòÒì³£ÍË³ö
-void unknownIdentity();		//Éí·İÑéÖ¤Òì³£
-void refreshBuffer();		//Ë¢ĞÂ»º³åÇø 
+void exitErrorTheSystem();		//ç¨‹åºå¼‚å¸¸é€€å‡º
+void unknownIdentity();		//èº«ä»½éªŒè¯å¼‚å¸¸
+void refreshBuffer();		//åˆ·æ–°ç¼“å†²åŒº 
 
 
 #endif

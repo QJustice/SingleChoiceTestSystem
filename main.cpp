@@ -1,5 +1,5 @@
-#include <iostream>
-#include <cstdlib>;
+ï»¿#include <iostream>
+#include <cstdlib>
 #include "systemHead.h"
 #include "errorExceptionHead.h"
 
@@ -8,31 +8,31 @@ using std::cout;
 
 int main()
 {
-	bool getLogonFlag = false;	//×¢²áÍê½øĞĞµÇÂ¼Ê±ÊäÈëºÏ·¨±ê¼Ç
-	int logonSel;				//×¢²áÍêµÇÂ¼Ê±Ñ¡ÏîÖ¸Áî
-	bool flag = false;			//ÓÃÓÚ±ê¼Ç·Ç·¨ÊäÈë
-	int sel;				//¼ÇÂ¼Ñ¡Ïî
-	string tmpName, tmpPassword;  //ÁÙÊ±´æ´¢ÓÃ»§ÃûºÍÃÜÂë
+	bool getLogonFlag = false;	//æ³¨å†Œå®Œè¿›è¡Œç™»å½•æ—¶è¾“å…¥åˆæ³•æ ‡è®°
+	int logonSel;				//æ³¨å†Œå®Œç™»å½•æ—¶é€‰é¡¹æŒ‡ä»¤
+	bool flag = false;			//ç”¨äºæ ‡è®°éæ³•è¾“å…¥
+	int sel;				//è®°å½•é€‰é¡¹
+	string tmpName, tmpPassword;  //ä¸´æ—¶å­˜å‚¨ç”¨æˆ·åå’Œå¯†ç 
 	do
 	{		
-		systemMenu();				//ÏµÍ³²Ëµ¥
-		flag = false;					//³õÊ¼»¯·Ç·¨ÊäÈë±ê¼Ç
-		cin >> sel;					//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈëÑ¡Ïî
-		switch (sel)				//²Ëµ¥Ñ¡Ôñ
+		systemMenu();				//ç³»ç»Ÿèœå•
+		flag = false;					//åˆå§‹åŒ–éæ³•è¾“å…¥æ ‡è®°
+		cin >> sel;					//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥é€‰é¡¹
+		switch (sel)				//èœå•é€‰æ‹©
 		{
-		case 1:						//Ñ¡ÏîÒ»
-			cout << "ÇëÊäÈëÓÃ»§Ãû\n";
-			cin >> tmpName;			//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈë
-			registerNum(tmpName);	//µ÷ÓÃ×¢²áº¯
+		case 1:						//é€‰é¡¹ä¸€
+			cout << "è¯·è¾“å…¥ç”¨æˆ·å\n";
+			cin >> tmpName;			//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥
+			registerNum(tmpName);	//è°ƒç”¨æ³¨å†Œå‡½
 			system("cls");
 			cout << "|----------------------------------------------|\n";
 			cout << "|                                              |\n";
-			cout << "|                ***×¢²á³É¹¦***                |\n";
+			cout << "|                ***æ³¨å†ŒæˆåŠŸ***                |\n";
 			cout << "|                                              |\n";
 			cout << "|----------------------------------------------|\n";
 			cout << "|                                              |\n";
-			cout << "|                 1.¼ÌĞøµÇÂ¼                   |\n";
-			cout << "|                 2.ÍË³öÏµÍ³                   |\n";
+			cout << "|                 1.ç»§ç»­ç™»å½•                   |\n";
+			cout << "|                 2.é€€å‡ºç³»ç»Ÿ                   |\n";
 			cout << "|                                              |\n";
 			cout << "|----------------------------------------------|\n";
 			do
@@ -41,46 +41,46 @@ int main()
 				switch (logonSel)
 				{
 				case 1: 
-					cout << "ÇëÊäÈëÓÃ»§Ãû\n";
-					cin >> tmpName;			//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈë
-					cout << "ÇëÊäÈëÃÜÂë\n";
-					tmpPassword = getpassword();		//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈë,¼ÓÃÜÊäÈë
-					logOn(tmpName, tmpPassword);	//µ÷ÓÃµÇÂ¼º¯Êı
+					cout << "è¯·è¾“å…¥ç”¨æˆ·å\n";
+					cin >> tmpName;			//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥
+					cout << "è¯·è¾“å…¥å¯†ç \n";
+					tmpPassword = getpassword();		//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥,åŠ å¯†è¾“å…¥
+					logOn(tmpName, tmpPassword);	//è°ƒç”¨ç™»å½•å‡½æ•°
 					break;
 				case 2:
-					exitSystem();			//µ÷ÓÃÍË³öÏµÍ³º¯Êı
+					exitSystem();			//è°ƒç”¨é€€å‡ºç³»ç»Ÿå‡½æ•°
 					break;
 				default:
 					getLogonFlag = true;
 				}
 				if (getLogonFlag)
 				{
-					cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë.\n";
-					cin.clear();			//¸ü¸Äcin×´Ì¬±êÊ¶·û×¼±¸½ÓÊÜÏÂÒ»´ÎµÄÊäÈë
-					systemSleep(1000);		//ÏµÍ³ĞİÃß
-					refreshBuffer();		//Ë¢ĞÂ»º³åÇø
+					cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥.\n";
+					cin.clear();			//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦å‡†å¤‡æ¥å—ä¸‹ä¸€æ¬¡çš„è¾“å…¥
+					systemSleep(1000);		//ç³»ç»Ÿä¼‘çœ 
+					refreshBuffer();		//åˆ·æ–°ç¼“å†²åŒº
 				}
 			} while (getLogonFlag);
 			break;
-		case 2:						//Ñ¡Ïî¶ş
-			cout << "ÇëÊäÈëÓÃ»§Ãû\n";
-			cin >> tmpName;			//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈë
-			cout << "ÇëÊäÈëÃÜÂë\n";
-			tmpPassword = getpassword();		//¼üÅÌ¶ÁÈ¡ÓÃ»§ÊäÈë,¼ÓÃÜÊäÈë
-			logOn(tmpName, tmpPassword);	//µ÷ÓÃµÇÂ¼º¯Êı
+		case 2:						//é€‰é¡¹äºŒ
+			cout << "è¯·è¾“å…¥ç”¨æˆ·å\n";
+			cin >> tmpName;			//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥
+			cout << "è¯·è¾“å…¥å¯†ç \n";
+			tmpPassword = getpassword();		//é”®ç›˜è¯»å–ç”¨æˆ·è¾“å…¥,åŠ å¯†è¾“å…¥
+			logOn(tmpName, tmpPassword);	//è°ƒç”¨ç™»å½•å‡½æ•°
 			break;
-		case 3:					//Ñ¡ÏîÈı
-			exitSystem();			//µ÷ÓÃÍË³öÏµÍ³º¯Êı
+		case 3:					//é€‰é¡¹ä¸‰
+			exitSystem();			//è°ƒç”¨é€€å‡ºç³»ç»Ÿå‡½æ•°
 			break;
-		default: flag = true;		//ÆäËû·Ç·¨ÊäÈë
+		default: flag = true;		//å…¶ä»–éæ³•è¾“å…¥
 		}
 		if (flag)
 		{
-			cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë.\n";
-			cin.clear();			//¸ü¸Äcin×´Ì¬±êÊ¶·û×¼±¸½ÓÊÜÏÂÒ»´ÎµÄÊäÈë
-			systemSleep(1000);		//ÏµÍ³ĞİÃß
-			refreshBuffer();		//Ë¢ĞÂ»º³åÇø
+			cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥.\n";
+			cin.clear();			//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦å‡†å¤‡æ¥å—ä¸‹ä¸€æ¬¡çš„è¾“å…¥
+			systemSleep(1000);		//ç³»ç»Ÿä¼‘çœ 
+			refreshBuffer();		//åˆ·æ–°ç¼“å†²åŒº
 		}
-	} while (flag);		//·Ç·¨ÊäÈëÏÂÒªÇóÖØĞÂÊäÈë
+	} while (flag);		//éæ³•è¾“å…¥ä¸‹è¦æ±‚é‡æ–°è¾“å…¥
 	return 0;
 }

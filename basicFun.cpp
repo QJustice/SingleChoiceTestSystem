@@ -1,4 +1,4 @@
-#include "basicHead.h"
+ï»¿#include "basicHead.h"
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -15,44 +15,44 @@ using std::endl;
 
 bool CBasic::changPassword(string& Name, string& oldPassword, string& newPassword, string path)
 {
-	string userName;			//ÓÃ»§Ãû´æ´¢
-	pair<string, string>userMessage;		//ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢´æ´¢
-	map<string, pair<string, string>>mp;	//key:ÓÃ»§Ãû value:ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢
-	fstream foi(path, ios::in);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
+	string userName;			//ç”¨æˆ·åå­˜å‚¨
+	pair<string, string>userMessage;		//ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯å­˜å‚¨
+	map<string, pair<string, string>>mp;	//key:ç”¨æˆ·å value:ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯
+	fstream foi(path, ios::in);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
 	fstream fwoi;	
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exit(EXIT_FAILURE);				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç³»ç»Ÿæ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exit(EXIT_FAILURE);				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 	}
-	if (foi.peek() == EOF)			//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)			//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş¿Õ, ÇëÁªÏµÏµÍ³¹ÜÀíÔ±\n";
+		cout << "ç³»ç»Ÿæ–‡ä»¶ç©º, è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜\n";
 		return false;
 	}
-	while (!foi.eof())								//°ÑÎÄ¼ş±éÀúµ½ÎÄ¼şÎ²
+	while (!foi.eof())								//æŠŠæ–‡ä»¶éå†åˆ°æ–‡ä»¶å°¾
 	{
-		foi >> userName >> userMessage.first >> userMessage.second; //Ğ´ÈëÁÙÊ±±äÁ¿
-		mp[userName] = userMessage;					//ÎÄ¼şÊı¾İ´æÈëmap
+		foi >> userName >> userMessage.first >> userMessage.second; //å†™å…¥ä¸´æ—¶å˜é‡
+		mp[userName] = userMessage;					//æ–‡ä»¶æ•°æ®å­˜å…¥map
 	}
-	auto tmpit = mp.find(Name);				//²éÕÒÔÚ´ËÓÃ»§ĞÅÏ¢
+	auto tmpit = mp.find(Name);				//æŸ¥æ‰¾åœ¨æ­¤ç”¨æˆ·ä¿¡æ¯
 
-	if (tmpit == mp.end())					//Î´ÕÒµ½Ïà¹ØÓÃ»§
-		cout << "Î´ÕÒµ½Ïà¹ØÓÃ»§\n";
-	else if (tmpit->second.first == oldPassword) //ĞÂ¾ÉÃÜÂë±È¶Ô
+	if (tmpit == mp.end())					//æœªæ‰¾åˆ°ç›¸å…³ç”¨æˆ·
+		cout << "æœªæ‰¾åˆ°ç›¸å…³ç”¨æˆ·\n";
+	else if (tmpit->second.first == oldPassword) //æ–°æ—§å¯†ç æ¯”å¯¹
 	{
-		tmpit->second.first = newPassword;		//Ìæ»»¾ÉÃÜÂë
-		fwoi.open(path, ios::out);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
-		for (auto it = mp.begin(); it != mp.end(); it++)	//Ğ´Èë¸üĞÂºóµÄÊı¾İ
+		tmpit->second.first = newPassword;		//æ›¿æ¢æ—§å¯†ç 
+		fwoi.open(path, ios::out);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
+		for (auto it = mp.begin(); it != mp.end(); it++)	//å†™å…¥æ›´æ–°åçš„æ•°æ®
 			fwoi << it->first << " " << it->second.first << " " << it->second.second << endl;
-		fwoi.close();						//¹Ø±ÕÎÄ¼ş
-		cout << "ÃÜÂëĞŞ¸Ä³É¹¦\n";
+		fwoi.close();						//å…³é—­æ–‡ä»¶
+		cout << "å¯†ç ä¿®æ”¹æˆåŠŸ\n";
 	}
 	else
-		cout << "ÃÜÂë´íÎó£¬ĞŞ¸ÄÊ§°Ü\n";
-	foi.clear();						//¸ü¸Äcin×´Ì¬±êÊ¶·û
-	foi.close();						//¹Ø±ÕÎÄ¼ş
+		cout << "åŸå¯†ç é”™è¯¯ï¼Œä¿®æ”¹å¤±è´¥\n";
+	foi.clear();						//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦
+	foi.close();						//å…³é—­æ–‡ä»¶
 	
 
 	return false;
@@ -75,46 +75,46 @@ string CBasic::getIdentity()
 
 bool CBasic::cancelAccount(string instruct, string path, string Name)
 {
-	if (instruct == "no")		//³·Ïú²Ù×÷
+	if (instruct == "no")		//æ’¤é”€æ“ä½œ
 	{
-		cout << "²Ù×÷ÒÑ³·Ïú\n";
+		cout << "æ“ä½œå·²æ’¤é”€\n";
 		return false;
 	}
-	string userName;			//ÓÃ»§Ãû´æ´¢
-	pair<string, string>userMessage;		//ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢´æ´¢
-	map<string, pair<string, string>>mp;	//key:ÓÃ»§Ãû value:ÓÃ»§ÃÜÂëÓëÉí·İĞÅÏ¢
-	fstream foi(path, ios::in);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
-	if (!foi)				//ÎÄ¼şÒì³£´¦Àí
+	string userName;			//ç”¨æˆ·åå­˜å‚¨
+	pair<string, string>userMessage;		//ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯å­˜å‚¨
+	map<string, pair<string, string>>mp;	//key:ç”¨æˆ·å value:ç”¨æˆ·å¯†ç ä¸èº«ä»½ä¿¡æ¯
+	fstream foi(path, ios::in);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
+	if (!foi)				//æ–‡ä»¶å¼‚å¸¸å¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş´ò¿ªÊ§°Ü£¡ÇëÁªÏµÏµÍ³¹ÜÀíÔ±¡£\n" << endl;
-		system("pause");						//ÔİÍ£
-		exit(EXIT_FAILURE);				//ÏµÍ³Òì³£ÖÕÖ¹
+		cout << "ç³»ç»Ÿæ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚\n" << endl;
+		system("pause");						//æš‚åœ
+		exit(EXIT_FAILURE);				//ç³»ç»Ÿå¼‚å¸¸ç»ˆæ­¢
 	}
-	if (foi.peek() == EOF)			//ÎÄ¼ş¿ÕÊ±ÌØÊâ´¦Àí
+	if (foi.peek() == EOF)			//æ–‡ä»¶ç©ºæ—¶ç‰¹æ®Šå¤„ç†
 	{
-		cout << "ÏµÍ³ÎÄ¼ş¿Õ, ÇëÁªÏµÏµÍ³¹ÜÀíÔ±\n";
+		cout << "ç³»ç»Ÿæ–‡ä»¶ç©º, è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜\n";
 		return false;
 	}
-	while (!foi.eof())								//°ÑÎÄ¼ş±éÀúµ½ÎÄ¼şÎ²
+	while (!foi.eof())								//æŠŠæ–‡ä»¶éå†åˆ°æ–‡ä»¶å°¾
 	{
-		foi >> userName >> userMessage.first >> userMessage.second; //Ğ´ÈëÁÙÊ±±äÁ¿
-		mp[userName] = userMessage;					//ÎÄ¼şÊı¾İ´æÈëmap
+		foi >> userName >> userMessage.first >> userMessage.second; //å†™å…¥ä¸´æ—¶å˜é‡
+		mp[userName] = userMessage;					//æ–‡ä»¶æ•°æ®å­˜å…¥map
 	}
-	auto tmpit = mp.find(Name);				//²éÕÒÔÚ´ËÓÃ»§ĞÅÏ¢
+	auto tmpit = mp.find(Name);				//æŸ¥æ‰¾åœ¨æ­¤ç”¨æˆ·ä¿¡æ¯
 
-	if (tmpit == mp.end())					//Î´ÕÒµ½Ïà¹ØÓÃ»§
-		cout << "Î´ÕÒµ½ÓÃ»§ÎÄ¼ş£¬×¢ÏúÊ§°Ü\n";
+	if (tmpit == mp.end())					//æœªæ‰¾åˆ°ç›¸å…³ç”¨æˆ·
+		cout << "æœªæ‰¾åˆ°ç”¨æˆ·æ–‡ä»¶ï¼Œæ³¨é”€å¤±è´¥\n";
 	else
 	{
-		mp.erase(Name);					//É¾³ıÓÃ»§ĞÅÏ¢
-		cout << "ÕËºÅ×¢Ïú³É¹¦\n";
+		mp.erase(Name);					//åˆ é™¤ç”¨æˆ·ä¿¡æ¯
+		cout << "è´¦å·æ³¨é”€æˆåŠŸ\n";
 	}
-	foi.clear();						//¸ü¸Äcin×´Ì¬±êÊ¶·û
-	foi.close();						//¹Ø±ÕÎÄ¼ş
-	foi.open(path, ios::out);			//´ò¿ª×¢²áĞÅÏ¢ÎÄ¼ş
-	for (auto it = mp.begin(); it != mp.end(); it++)	//Ğ´Èë¸üĞÂºóµÄÊı¾İ
+	foi.clear();						//æ›´æ”¹cinçŠ¶æ€æ ‡è¯†ç¬¦
+	foi.close();						//å…³é—­æ–‡ä»¶
+	foi.open(path, ios::out);			//æ‰“å¼€æ³¨å†Œä¿¡æ¯æ–‡ä»¶
+	for (auto it = mp.begin(); it != mp.end(); it++)	//å†™å…¥æ›´æ–°åçš„æ•°æ®
 		foi << it->first << " " << it->second.first << " " << it->second.second << endl;
-	foi.close();						//¹Ø±ÕÎÄ¼ş
+	foi.close();						//å…³é—­æ–‡ä»¶
 
 	return true;
 }

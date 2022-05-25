@@ -1,24 +1,24 @@
-#include <cstdlib>
+ï»¿#include <cstdlib>
 #include "errorExceptionHead.h"
 #include <iostream>
 
 using std::cout;
-//Òì³£ÍË³öÏµÍ³
+//å¼‚å¸¸é€€å‡ºç³»ç»Ÿ
 void exitErrorTheSystem()
 {
-	//³ÌĞòÒì³£ÍË³ö
+	//ç¨‹åºå¼‚å¸¸é€€å‡º
 	exit(EXIT_FAILURE);
 }
 
-//Éí·İÑéÖ¤Òì³£
+//èº«ä»½éªŒè¯å¼‚å¸¸
 void unknownIdentity()
 {
-	cout << "Î´ÖªÉí·İ£¬µÇÂ¼Ê§°Ü£¬ÇëÁªÏµÍ³¹ÜÀíÔ±\n";
+	cout << "æœªçŸ¥èº«ä»½ï¼Œç™»å½•å¤±è´¥ï¼Œè¯·è”ç³»ç»Ÿç®¡ç†å‘˜\n";
 }
 
-//Ë¢ĞÂ»º³åÇø
+//åˆ·æ–°ç¼“å†²åŒº
 void refreshBuffer()
 {
-	//½«ÎÄ¼şÖ¸ÕëÖØĞÂÖ¸ÏòÎÄ¼ş¿ªÍ·,´ïµ½Ë¢ĞÂ»º³åÇøĞ§¹û
+	//å°†æ–‡ä»¶æŒ‡é’ˆé‡æ–°æŒ‡å‘æ–‡ä»¶å¼€å¤´,è¾¾åˆ°åˆ·æ–°ç¼“å†²åŒºæ•ˆæœ
 	rewind(stdin);
 }
