@@ -28,7 +28,7 @@ bool judgmentString(string& str);		//判断是否为字符串
 bool judgmentNumber(string& str);			//判断是否为数字
 bool openMenu(string& userName, string& userType);		//开启菜单
 bool returnMenu(string& userName, string& userType);	//返回上一级
-string getpassword();					//加密输入
+string encryptedInput();					//加密输入
 void Random(int* arr, int num, int minNum, int maxNum);//生成范围在minNum~maxNum的随机数 
 int cmpfunc(const void* a, const void* b); //题目编号排序方式
 char getUserAnswer();					//读取用户输入的答案

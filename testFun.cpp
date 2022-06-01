@@ -217,7 +217,7 @@ void CAdmin::userManagement(string userName, CAdmin admin, string adminName)
 		{
 		case 1:
 			cout << "请输入新密码：";
-			inNewPassword = getpassword();			//键盘输入旧密码
+			inNewPassword = encryptedInput();			//键盘输入旧密码
 			//调用更改密码函数
 			system("cls");
 			admin.resettingUserPassword(userName,inNewPassword, pathUser);

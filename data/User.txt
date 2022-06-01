@@ -1,9 +1,6 @@
-A 3 administrators
 Amy 789 user
 Ascetic 123456 administrators
+B 1 administrators
 Him 123456 user
-John 147 user
-TSQ 147 user
-Tom 123456 user
-WTF 123 user
+root root administrators
 xxx 123456 error

@@ -131,7 +131,7 @@ bool registerNum(string& tempName)		//注册
 
 	} while (flag);									//异常输入要求重新输入
 	cout << "请输入密码\n";
-	tempPassword = getpassword();		//键盘读取用户输入,加密输入
+	tempPassword = encryptedInput();		//键盘读取用户输入,加密输入
 	foi.clear();									//更改cin状态标识符
 	CUser tempUsr;
 	foi << tempName << " " << tempPassword << " " << tempUsr.getIdentity() << endl;		//给文件追加内容，保存注册信息
@@ -177,7 +177,7 @@ void unregisteredUserMenu(string& name, string& password)
 			cout << "请输入用户名\n";
 			cin >> name;					//用户重新从键盘输入用户名
 			cout << "请输入密码\n";
-			password = getpassword();		//键盘读取用户输入,加密输入
+			password = encryptedInput();		//键盘读取用户输入,加密输入
 			break;
 		case 2:
 			cout << "请输入用户名\n";
@@ -327,9 +327,9 @@ bool openMenu(string& userName, string& userType)
 				break;
 			case 6:
 				cout << "请输入旧密码：";
-				inOldPassword = getpassword();			//键盘输入旧密码
+				inOldPassword = encryptedInput();			//键盘输入旧密码
 				cout << "请输入新密码：";
-				inNewPassword = getpassword();			//键盘输入新密码
+				inNewPassword = encryptedInput();			//键盘输入新密码
 				//调用更改密码函数
 				admin.changPassword(userName, inOldPassword, inNewPassword, pathUser);
 				returnMenu(userName, userType);		//返回上一级菜单
@@ -476,7 +476,7 @@ bool returnMenu(string& userName, string& userType)
 	return !reMenuFlag;
 }
 
-string getpassword()
+string encryptedInput()
 {
 	string str = "";		//空字符串
 	char init = '\0';		//默认字符为空
